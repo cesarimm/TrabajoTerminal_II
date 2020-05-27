@@ -1,0 +1,3 @@
+rootProject.name='Prueba3D'
+include ':app'
+include ':openCVLibrary330'

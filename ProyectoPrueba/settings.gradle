@@ -1,0 +1,3 @@
+rootProject.name='REDISEÑO3D'
+include ':app'
+include ':openCVLibrary345'
