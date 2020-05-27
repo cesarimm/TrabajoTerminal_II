@@ -47,7 +47,11 @@ public class ConvexHull {
     private int threshold = 100;
     private Random rng = new Random(12345);
     public ConvexHull(String[] args) {
-        String filename = "D:\\Desktop\\OpencvJava\\cuadrado.png";
+       // String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\cuadrado.jpg";
+        String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\engrane2.jpg";
+       //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\trapecio.jpg";
+       // String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\trinagulo.jpg";
+       // String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\estrella.png";
         Mat src = Imgcodecs.imread(filename);
         if (src.empty()) {
             System.err.println("Cannot read image: " + filename);
@@ -118,17 +122,105 @@ public class ConvexHull {
             }
             hullList.add(new MatOfPoint(hullPoints));
         }
-        List<Point> aux = contours.get(0).toList();
-        Mat drawing = Mat.zeros(cannyOutput.size(), CvType.CV_8UC3);
+        
+      
+         ArrayList<Point> aux = new ArrayList<Point>();
+        
+         Mat drawing = Mat.zeros(cannyOutput.size(), CvType.CV_8UC3);
+        
+        
+       
         for (int i = 0; i < contours.size(); i++) {
             Scalar color = new Scalar(rng.nextInt(256), rng.nextInt(256), rng.nextInt(256));
             Imgproc.drawContours(drawing, contours, i, color);
-           // Imgproc.drawContours(drawing, hullList, i, color );
+            //Imgproc.drawContours(drawing, hullList, i, color );
         }
+        
+        
+        int mod = 5;
+        //Obtener todos los puntos de los diferentes contornos
+        int k=0;
+         for (int i = 0; i < contours.size(); i++) {
+            List<Point> puntos = contours.get(i).toList();
+             //Obtener los puntos de cada parte del contorno
+             for (int j=0;j<puntos.size();j++){
+               if(k%mod==0){
+                      aux.add(puntos.get(j));
+                   
+                 }
+                    k++;
+             }             
+        }
+         
+         this.ordenarPuntos(aux);
+         System.out.println("");
+         //this.ordenar(aux);
+        //Calcular el punto medio de la cara
+        double sumX=0, sumY=0;
+        int puntosSuma=0;
+      for (int i = 0; i < aux.size(); i++) {
+               Imgproc.circle(drawing, new Point(aux.get(i).x, aux.get(i).y), 5, new Scalar(255,0,0), 2, 8, 0);
+               sumX+=aux.get(i).x;
+               sumY+=aux.get(i).y;
+               puntosSuma++;
+              // System.out.println("X: "+aux.get(i).x+" Y:"+aux.get(i).y);
+                
+        }
+                 //aux.add(new Point(sumX/puntosSuma, sumY/puntosSuma));
+               //  System.out.println(sumX/puntosSuma+" "+sumY/puntosSuma);
+//                   for(int i=0;i<aux.size()-1;i++){
+//            System.out.println("v "+aux.get(i).x+" "+aux.get(i).y+" 0");
+//        }
+                   
+         for(int i=0;i<aux.size()-1;i++){
+            System.out.println("aux.add(new Point("+aux.get(i).x+","+aux.get(i).y+"));");
+        } 
+         
+         System.out.println("v "+Math.ceil(sumX/puntosSuma)+" "+Math.ceil(sumY/puntosSuma)+"  0");
+         
+         System.out.println("usemtl Default");
+         
+       
+       for(int i=0;i<aux.size()-2;i++){
+            System.out.println("f "+(i+1)+" "+(i+2)+" "+(aux.size()));
+        }
+        
+       
+        Imgproc.circle(drawing, new Point(sumX/puntosSuma, sumY/puntosSuma), 5, new Scalar(0,0,255), 2, 8, 0);
         imgContoursLabel.setIcon(new ImageIcon(HighGui.toBufferedImage(drawing)));
         frame.repaint();
         System.out.println("");
     }
+    
+    
+     
+     
+        
+     
+    private void ordenarPuntos(ArrayList<Point> aux){
+        
+        ArrayList<Point> listaOrdenada = new ArrayList<Point>();
+        
+        double distanciaAux = Herramientas.distanciaEuclidiana(aux.get(0), aux.get(1));
+        int ref = 1;
+        
+        for(int j=1;j<aux.size();j++){
+             double distanciaTemporal = 0;
+            for(int i=j;i<aux.size()-1;i++){
+              ///Calculando con todos los puntos 
+               distanciaTemporal = Herramientas.distanciaEuclidiana(aux.get(j), aux.get(i+1));
+              if(distanciaTemporal<distanciaAux){
+                  System.out.println("distanciaMenor: "+distanciaAux);
+                   distanciaAux = distanciaTemporal;
+                   ref = i;
+              }else if(distanciaTemporal==0){
+                  System.out.println("Son iguales");
+                  aux.remove(i+1);
+              }
+           }     
+        }       
+    }
+    
     
     
       public static void main(String[] args) {
