@@ -11,15 +11,12 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
-
     <uses-feature
         android:name="android.hardware.camera.autofocus"
         android:required="false" />
-
     <uses-feature
         android:name="android.hardware.camera.front"
         android:required="false" />
-
     <uses-feature
         android:name="android.hardware.camera.front.autofocus"
         android:required="false" />
@@ -31,7 +28,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CameraActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".CargarImg"></activity>
+        <activity
+            android:name=".CameraActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

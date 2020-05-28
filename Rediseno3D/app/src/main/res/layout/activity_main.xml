@@ -66,6 +66,7 @@
             android:layout_height="100dp"
             android:background="@drawable/boton_pulsado"
             android:text="@string/ventana3"
+            android:onClick="abrirVentanaComoUtilizar"
             android:textColor="#FFCCCC"
             android:textStyle="bold" />
     </LinearLayout>
