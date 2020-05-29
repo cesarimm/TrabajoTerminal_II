@@ -1,0 +1,5 @@
+Modelado en 3D
+https://www.youtube.com/watch?v=UE7Cwyr83Mo&t=553s
+https://www.youtube.com/watch?v=T3yO5d6vKPc
+https://gist.github.com/ybakos/4151696
+https://sites.google.com/site/timpascallib/library/java/android-studio-opengl-example-01
