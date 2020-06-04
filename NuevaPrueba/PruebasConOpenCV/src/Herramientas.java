@@ -144,6 +144,7 @@ public class Herramientas {
       
       public static void sintaxisOBJ(ArrayList<Point> aux){
           double xProm=0, yProm=0;
+          int arreglo[] = new int[aux.size()+1];
           
         for(int i=0;i<aux.size();i++){
             System.out.println(" v "+aux.get(i).x+" "+aux.get(i).y+" 0");
@@ -158,9 +159,45 @@ public class Herramientas {
        
        for(int i=0;i<aux.size()-1;i++){
             System.out.println("f "+(i+1)+" "+(i+2)+" "+(aux.size()+1));
+            arreglo[i+1]++;
+            arreglo[i+2]++;
         }
        
         System.out.println("f "+1+" "+aux.size()+" "+(aux.size()+1));
+        
+        for(int i=0;i<aux.size()+1;i++){
+            if(arreglo[i]==1){
+                System.out.println(i+1);
+            }
+        }
+      }
+      
+      
+       public static void sintaxisOpenGL(ArrayList<Point> aux){
+          double xProm=0, yProm=0;
+          
+        for(int i=0;i<aux.size();i++){
+            System.out.println(+aux.get(i).x/200+"f,"+aux.get(i).y/200+"f, 0f,");
+            xProm+=aux.get(i).x;
+            yProm+=aux.get(i).y;
+        }
+        
+        System.out.println(Math.ceil(xProm/aux.size())/200+"f,"+Math.ceil(yProm/aux.size())/200+"f,0f");
+        
+        System.out.println("usemtl Default");
+         
+       
+//       for(int i=0;i<aux.size()-1;i++){
+//            System.out.println("(byte)"+(i)+",(byte)"+(i+1)+",(byte)"+(aux.size())+",");
+//        }
+//       
+//        System.out.println(0+",(byte)"+(aux.size()-1)+",(byte)"+(aux.size()));
+
+         for(int i=0;i<aux.size()-1;i++){
+            System.out.println(""+(i)+","+(i+1)+","+(aux.size())+",");
+        }
+       
+        System.out.println(0+","+(aux.size()-1)+","+(aux.size()));
       }
       
     
@@ -1495,7 +1532,7 @@ aux.add(new Point(374.0,104.0));
 aux.add(new Point(344.0,97.0));
 aux.add(new Point(354.0,81.0));
 aux.add(new Point(356.0,74.0));
-aux.add(new Point(356.0,61.0));
+aux.add(new Point(356.0,61));
 aux.add(new Point(336.0,60.0));
 aux.add(new Point(328.0,67.0));
 aux.add(new Point(321.0,76.0));
@@ -1520,8 +1557,36 @@ aux.add(new Point(242.0,31.0));
    aux =  Herramientas.ordenarPuntos(aux);
         System.out.println("");
         Herramientas.sintaxisOBJ(aux);
+       //Herramientas.sintaxisOpenGL(aux);
        
        // System.out.println(Herramientas.regresarReferencia(p1,  Herramientas.limpiarLista(aux)));
     }
     
 }
+//
+///*private float colors[] = {
+//
+//               // 0.6f,  0.6f,  0.6f, 0.6f,
+//               // 0.6f,  0.6f,  0.6f, 0.6f,
+//               // 0.6f,  0.6f,  0.6f, 0.6f,
+//               // 0.6f,  0.6f,  0.6f, 0.6f
+//
+//                0.5f,  0.5f,  0.5f,  0.5f,
+//                0.5f,  0.5f,  0.5f,  0.5f,
+//                0.5f,  0.5f,  0.5f,  0.5f,
+//                0.5f,  0.5f,  0.5f,  0.5f,
+//                0.5f,  0.5f,  0.5f,  0.5f,
+//                0.5f,  0.5f,  0.5f,  0.5f,
+//                0.5f,  0.5f,  0.5f,  0.5f,
+//                0.5f,  0.5f,  0.5f,  0.5f,
+//                0.5f,  0.5f,  0.5f,  0.5f
+//
+//               /* 0.0f,  1.0f,  0.0f,  1.0f,
+//                0.0f,  1.0f,  0.0f,  1.0f,
+//                1.0f,  0.5f,  0.0f,  1.0f,
+//                1.0f,  0.5f,  0.0f,  1.0f,
+//                1.0f,  0.0f,  0.0f,  1.0f
+//               /* 1.0f,  0.0f,  0.0f,  1.0f,
+//                0.0f,  0.0f,  1.0f,  1.0f,
+//                1.0f,  0.0f,  1.0f,  1.0f*/
+//        };/*

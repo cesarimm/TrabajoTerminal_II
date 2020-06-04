@@ -36,7 +36,8 @@ public class CameraActivity extends AppCompatActivity {
         public void onPictureTaken(byte[] data, Camera camera) {
 
             File pictureFile = getOutputMediaFile(MEDIA_TYPE_IMAGE);
-            Toast.makeText(getApplicationContext(), "Ya fue creado: "+pictureFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "Ya fue creado: "+pictureFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Capturada", Toast.LENGTH_LONG).show();
             if (pictureFile == null){
                 Log.d(TAG, "Error creating media file, check storage permissions");
                 return;
@@ -124,7 +125,7 @@ public class CameraActivity extends AppCompatActivity {
         // File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
         //       Environment.DIRECTORY_PICTURES), "MyCameraApp");
 
-        File mediaStorageDir = new File(Environment.getExternalStorageDirectory()+"/archivos/", "MyDesign3D");
+        File mediaStorageDir = new File(Environment.getExternalStorageDirectory()+"/R3D/", "imagenes");
         // This location works best if you want the created images to be shared
         // between applications and persist after your app has been uninstalled.
 
@@ -136,7 +137,7 @@ public class CameraActivity extends AppCompatActivity {
             }
         }
 
-        // Create a media file name
+        // Creacion del nombre de la imagen
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         File mediaFile;
         if (type == MEDIA_TYPE_IMAGE){

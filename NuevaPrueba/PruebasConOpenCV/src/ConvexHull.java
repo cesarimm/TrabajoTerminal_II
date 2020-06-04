@@ -52,6 +52,10 @@ public class ConvexHull {
        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\trapecio.jpg";
        // String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\trinagulo.jpg";
        // String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\estrella.png";
+       //  String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\ele.jpg";
+       //  String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\trapecio.jpg";
+      // String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\flecha.jpg";
+      //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\esquinas.jpg";
         Mat src = Imgcodecs.imread(filename);
         if (src.empty()) {
             System.err.println("Cannot read image: " + filename);
@@ -137,7 +141,7 @@ public class ConvexHull {
         }
         
         
-        int mod = 5;
+        int mod = 20;
         //Obtener todos los puntos de los diferentes contornos
         int k=0;
          for (int i = 0; i < contours.size(); i++) {
@@ -152,10 +156,10 @@ public class ConvexHull {
              }             
         }
          
-         this.ordenarPuntos(aux);
-         System.out.println("");
-         //this.ordenar(aux);
-        //Calcular el punto medio de la cara
+//         this.ordenarPuntos(aux);
+//         System.out.println("");
+//         //this.ordenar(aux);
+//        //Calcular el punto medio de la cara
         double sumX=0, sumY=0;
         int puntosSuma=0;
       for (int i = 0; i < aux.size(); i++) {
@@ -163,29 +167,31 @@ public class ConvexHull {
                sumX+=aux.get(i).x;
                sumY+=aux.get(i).y;
                puntosSuma++;
-              // System.out.println("X: "+aux.get(i).x+" Y:"+aux.get(i).y);
-                
+              // System.out.println("X: "+aux.get(i).x+" Y:"+aux.get(i).y);             
         }
-                 //aux.add(new Point(sumX/puntosSuma, sumY/puntosSuma));
-               //  System.out.println(sumX/puntosSuma+" "+sumY/puntosSuma);
-//                   for(int i=0;i<aux.size()-1;i++){
-//            System.out.println("v "+aux.get(i).x+" "+aux.get(i).y+" 0");
+//      
+//                 //aux.add(new Point(sumX/puntosSuma, sumY/puntosSuma));
+//               //  System.out.println(sumX/puntosSuma+" "+sumY/puntosSuma);
+////                   for(int i=0;i<aux.size()-1;i++){
+////            System.out.println("v "+aux.get(i).x+" "+aux.get(i).y+" 0");
+////        }
+//                   
+//      //   for(int i=0;i<aux.size()-1;i++){
+//       //     System.out.println("aux.add(new Point("+aux.get(i).x+","+aux.get(i).y+"));");
+//       // } 
+//         
+//         System.out.println("v "+Math.ceil(sumX/puntosSuma)+" "+Math.ceil(sumY/puntosSuma)+"  0");
+//         
+//         System.out.println("usemtl Default");
+//         
+//       
+//       for(int i=0;i<aux.size()-2;i++){
+//            System.out.println("f "+(i+1)+" "+(i+2)+" "+(aux.size()));
 //        }
-                   
-         for(int i=0;i<aux.size()-1;i++){
-            System.out.println("aux.add(new Point("+aux.get(i).x+","+aux.get(i).y+"));");
-        } 
-         
-         System.out.println("v "+Math.ceil(sumX/puntosSuma)+" "+Math.ceil(sumY/puntosSuma)+"  0");
-         
-         System.out.println("usemtl Default");
-         
-       
-       for(int i=0;i<aux.size()-2;i++){
-            System.out.println("f "+(i+1)+" "+(i+2)+" "+(aux.size()));
-        }
-        
-       
+//        
+         aux = Herramientas.ordenarPuntos(aux);
+         Herramientas.sintaxisOBJ(aux);
+         Herramientas.sintaxisOpenGL(aux);
         Imgproc.circle(drawing, new Point(sumX/puntosSuma, sumY/puntosSuma), 5, new Scalar(0,0,255), 2, 8, 0);
         imgContoursLabel.setIcon(new ImageIcon(HighGui.toBufferedImage(drawing)));
         frame.repaint();
