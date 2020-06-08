@@ -76,7 +76,7 @@ public class OBJAdapter extends ArrayAdapter {
         tvFecha.setText(item.getFecha());
 
         //Trabajar con la imagen de cada uno
-        File file = new File(Environment.getExternalStorageDirectory() + "/R3D/imagenes/engrane2.jpg");
+        File file = new File(Environment.getExternalStorageDirectory() + "/R3D/imagenes/IMG_20200603_175302.jpg");
 
         try{
           Bitmap imagenBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());

@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void abrirVentanaComoUtilizar(View view){
-        Intent intent = new Intent(this, CargarImg.class);
+        Intent intent = new Intent(this, Visualizador.class);
         startActivity(intent);
     }
 
