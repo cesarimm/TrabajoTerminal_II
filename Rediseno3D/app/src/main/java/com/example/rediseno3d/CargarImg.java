@@ -34,7 +34,7 @@ public class CargarImg extends AppCompatActivity {
 
     public void crearCarpeta() {
         // File file = new File(Environment.getExternalStorageDirectory()+"/archivos/MyDesign3D/IMG_20200304_110721.jpg");
-        File file = new File(Environment.getExternalStorageDirectory() + "/archivos/MyDesign3D/engrane.jpg");
+        File file = new File(Environment.getExternalStorageDirectory() + "/R3D/imagenes/engrane2.jpg");
         if (!file.exists()) {
             Toast.makeText(getApplicationContext(), "No existe... ", Toast.LENGTH_SHORT).show();
         } else {

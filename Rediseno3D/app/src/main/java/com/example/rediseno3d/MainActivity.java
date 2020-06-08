@@ -31,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void abrirVentanaListView(View view){
+        Intent intent = new Intent(this, ObjListActivity.class);
+        startActivity(intent);
+    }
+
     public void abrirVentanaComoUtilizar(View view){
         Intent intent = new Intent(this, CargarImg.class);
         startActivity(intent);
