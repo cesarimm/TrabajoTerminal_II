@@ -8,8 +8,41 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class Renderizador implements GLSurfaceView.Renderer {
 
-    private Figura figura = new Figura();
+    private Figura figura; //new Figura();
     private float rotation;
+
+    public Renderizador(float vertices[], float colors[], byte indices[]){
+
+         /*float vertices[] = {0.24f,0.11f, 0f,
+                 0.645f,0.115f, 0f,
+                 0.655f,1.505f, 0f,
+                 0.66f,1.505f, 0f,
+                 1.075f,1.52f, 0f,
+                 1.06f,1.935f, 0f,
+                 0.24f,1.935f, 0f,
+                 0.225f,1.92f, 0f,
+                 0.6f,1.32f,0f};
+
+        float colors[]= new float[(vertices.length/3)*4];
+
+          for(int i=0;i<(vertices.length/3)*4;i++){
+           colors[i] = 0.5f;
+         }
+
+         byte indices[] ={
+                 0,1,8,
+                 1,2,8,
+                 2,3,8,
+                 3,4,8,
+                 4,5,8,
+                 5,6,8,
+                 6,7,8,
+                 0,7,8
+         };*/
+
+        figura = new Figura(vertices, colors, indices);
+        //figura = new Figura(nameFile);
+    }
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig Config) {
