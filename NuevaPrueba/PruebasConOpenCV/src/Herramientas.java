@@ -153,7 +153,7 @@ public class Herramientas {
           int arreglo[] = new int[aux.size()+1];
           
         for(int i=0;i<aux.size();i++){
-            System.out.println(" v "+aux.get(i).x+" "+aux.get(i).y+" 0");
+            System.out.println("v "+aux.get(i).x+" "+aux.get(i).y+" 0");
             xProm+=aux.get(i).x;
             yProm+=aux.get(i).y;
         }

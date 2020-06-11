@@ -160,7 +160,7 @@ public class Figura {
             //System.out.println(verticesArray.get(i));
             String[] palabras = verticesArray.get(i).split(" ");
             for(int j=0;j<palabras.length;j++){
-                vertices[cont]=Float.parseFloat(palabras[j])/200;
+                vertices[cont]=(Float.parseFloat(palabras[j])/200)-1;
                 cont++;
             }
         }
