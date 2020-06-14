@@ -179,6 +179,65 @@ public class Herramientas {
       }
       
       
+      
+         public static void sintaxisOBJV2(ArrayList<Point> aux, double largo){
+          double xProm=0, yProm=0;
+          int arreglo[] = new int[aux.size()+1];
+          
+        for(int i=0;i<aux.size();i++){
+            System.out.println("v "+aux.get(i).x+" "+aux.get(i).y+" 0");
+            xProm+=aux.get(i).x;
+            yProm+=aux.get(i).y;
+        }
+        
+        System.out.println("v "+Math.ceil(xProm/aux.size())+" "+Math.ceil(yProm/aux.size())+" 0");
+        
+        ///Para duplicar los puntos
+        for(int i=0;i<aux.size();i++){
+            System.out.println("v "+aux.get(i).x+" "+aux.get(i).y+" "+largo);
+            //xProm+=aux.get(i).x;
+            //yProm+=aux.get(i).y;
+        }
+        
+        System.out.println("v "+Math.ceil(xProm/aux.size())+" "+Math.ceil(yProm/aux.size())+" "+largo);
+        
+        System.out.println("usemtl Default");
+         
+       
+        ///Imprimir las caras laterales
+        
+       for(int i=0;i<aux.size()-1;i++){
+            ///Primer triangulo
+            System.out.println("f "+(i+1)+" "+(i+2)+" "+(aux.size()+1));
+                   
+        }
+       
+       System.out.println("f "+1+" "+aux.size()+" "+(aux.size()+1));
+       
+       for(int i=0;i<aux.size()-1;i++){
+            ///Primer triangulo
+            System.out.println("f "+(aux.size()+(i+2))+" "+(aux.size()+(i+3))+" "+((aux.size()*2)+2));
+            
+            
+        }
+       
+       
+        System.out.println("f "+(aux.size()+2)+" "+((aux.size()*2)+1)+" "+((aux.size()*2)+2));
+        
+        //Union entrre las caras laterales
+         for(int i=0;i<aux.size()-1;i++){
+            System.out.println("f "+(i+1)+" "+(i+2)+" "+(aux.size()+(i+2)));
+            System.out.println("f "+(aux.size()+(i+2))+" "+(aux.size()+(i+3))+" "+(i+2));    
+        }
+         
+        //Las ultimas dos caras
+        System.out.println("f "+1+" "+(aux.size()-1)+" "+((aux.size()*2)+1));
+        System.out.println("f "+1+" "+((aux.size()*2)+1)+" "+(aux.size()+2));   
+        
+      
+      }
+      
+      
        public static void sintaxisOpenGL(ArrayList<Point> aux){
           double xProm=0, yProm=0;
           

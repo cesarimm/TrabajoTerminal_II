@@ -57,7 +57,10 @@ public class ConvexHull {
       // String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\flecha.jpg";
       //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\esquinas.jpg";
       //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\comido.jpg";
-      String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\frasco2.jpg";
+      //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\frasco2.jpg";
+       //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\recorte2.jpg";
+        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\escalera1.jpg";
+        String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\Achicada.jpg";
         Mat src = Imgcodecs.imread(filename);
         if (src.empty()) {
             System.err.println("Cannot read image: " + filename);
@@ -65,11 +68,13 @@ public class ConvexHull {
         }
         Imgproc.cvtColor(src, srcGray, Imgproc.COLOR_BGR2GRAY);
         Imgproc.blur(srcGray, srcGray, new Size(3, 3));
+        //Linea extra
+        //Imgproc.Canny(srcGray, srcGray, 50, 150);
         // Create and set up the window.
         frame = new JFrame("Convex Hull demo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // Set up the content pane.
-        Image img = HighGui.toBufferedImage(src);
+        Image img = HighGui.toBufferedImage(srcGray);
         addComponentsToPane(frame.getContentPane(), img);
         // Use the content pane's default BorderLayout. No need for
         // setLayout(new BorderLayout());
@@ -194,8 +199,9 @@ public class ConvexHull {
 //        }
 //        
          aux = Herramientas.ordenarPuntos(aux);
-         Herramientas.sintaxisOBJ(aux);
-         Herramientas.sintaxisOpenGL(aux);
+        // Herramientas.sintaxisOBJ(aux);
+        // Herramientas.sintaxisOpenGL(aux);
+        Herramientas.sintaxisOBJV2(aux, 185);
         Imgproc.circle(drawing, new Point(sumX/puntosSuma, sumY/puntosSuma), 5, new Scalar(0,0,255), 2, 8, 0);
         imgContoursLabel.setIcon(new ImageIcon(HighGui.toBufferedImage(drawing)));
         frame.repaint();

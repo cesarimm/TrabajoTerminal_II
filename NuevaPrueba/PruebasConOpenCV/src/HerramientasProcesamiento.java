@@ -71,7 +71,7 @@ public class HerramientasProcesamiento {
     
     
     public HerramientasProcesamiento(String[] args) {
-        String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\cuadrado.jpg";
+       // String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\cuadrado.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\engrane2.jpg";
        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\trapecio.jpg";
        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\trinagulo.jpg";
@@ -79,9 +79,14 @@ public class HerramientasProcesamiento {
       // String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\ele.jpg";
        // String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\trapecio.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\flecha.jpg";
-       //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\esquinas.jpg";
+      // String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\esquinas.jpg";
        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\comido.jpg";
        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\frasco2.jpg";
+       //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\rectangulo.jpg";
+       //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\cap1.jpg";
+       // String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\recorte1.jpg";
+       //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\escalera1.jpg";
+       String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\Achicada.jpg";
         Mat src = Imgcodecs.imread(filename);
         if (src.empty()) {
             System.err.println("Cannot read image: " + filename);
@@ -261,7 +266,7 @@ public class HerramientasProcesamiento {
             
               System.out.println("Tamaño: "+listaPuntos.size());
                        
-                        if(listaPuntos.size()>127){                
+                        if(listaPuntos.size()>7000){                
                            listaPuntos.clear();
                           
                        }else{
@@ -324,13 +329,14 @@ public class HerramientasProcesamiento {
            
            
            ///Obtener Obj
-           Herramientas.sintaxisOBJ(listaPuntos);
-
+           listaPuntos =  Herramientas.ordenarPuntos(listaPuntos);
+           //Herramientas.sintaxisOBJ(listaPuntos);
+           Herramientas.sintaxisOBJV2(listaPuntos, 650.0);
       Imgproc.circle(dstNormScaled, new Point(72, 190), 5, new Scalar(255,0,0), 2, 8, 0);
       Imgproc.circle(dstNormScaled, new Point(69, 244), 5, new Scalar(255,0,0), 2, 8, 0);
        
        
-      // this.obtenerPixeles();
+      
        
 
         imgContoursLabel.setIcon(new ImageIcon(HighGui.toBufferedImage(dstNormScaled)));
