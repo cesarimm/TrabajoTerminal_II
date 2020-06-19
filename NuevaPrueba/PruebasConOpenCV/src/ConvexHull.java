@@ -47,20 +47,20 @@ public class ConvexHull {
     private int threshold = 100;
     private Random rng = new Random(12345);
     public ConvexHull(String[] args) {
-       // String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\cuadrado.jpg";
-       // String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\engrane2.jpg";
+        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\cuadrado.jpg";
+       //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\engrane2.jpg";
        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\trapecio.jpg";
-       // String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\trinagulo.jpg";
-       // String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\estrella.png";
-        // String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\ele.jpg";
-       //  String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\trapecio.jpg";
-      // String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\flecha.jpg";
+        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\trinagulo.jpg";
+        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\estrella.png";
+         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\ele.jpg";
+        // String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\trapecio.jpg";
+       String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\flecha.jpg";
       //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\esquinas.jpg";
       //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\comido.jpg";
       //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\frasco2.jpg";
        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\recorte2.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\escalera1.jpg";
-        String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\Achicada.jpg";
+        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\Achicada.jpg";
         Mat src = Imgcodecs.imread(filename);
         if (src.empty()) {
             System.err.println("Cannot read image: " + filename);
@@ -149,7 +149,7 @@ public class ConvexHull {
             //Imgproc.drawContours(drawing, hullList, i, color );
         }
         
-        
+      
         int mod = 2;
         //Obtener todos los puntos de los diferentes contornos
         int k=0;
@@ -165,10 +165,8 @@ public class ConvexHull {
              }             
         }
          
-//         this.ordenarPuntos(aux);
-//         System.out.println("");
-//         //this.ordenar(aux);
-//        //Calcular el punto medio de la cara
+
+       //Calcular el punto medio de la cara solo es para dibujar
         double sumX=0, sumY=0;
         int puntosSuma=0;
       for (int i = 0; i < aux.size(); i++) {
@@ -178,39 +176,44 @@ public class ConvexHull {
                puntosSuma++;
               // System.out.println("X: "+aux.get(i).x+" Y:"+aux.get(i).y);             
         }
-//      
-//                 //aux.add(new Point(sumX/puntosSuma, sumY/puntosSuma));
-//               //  System.out.println(sumX/puntosSuma+" "+sumY/puntosSuma);
-////                   for(int i=0;i<aux.size()-1;i++){
-////            System.out.println("v "+aux.get(i).x+" "+aux.get(i).y+" 0");
-////        }
-//                   
-//      //   for(int i=0;i<aux.size()-1;i++){
-//       //     System.out.println("aux.add(new Point("+aux.get(i).x+","+aux.get(i).y+"));");
-//       // } 
-//         
-//         System.out.println("v "+Math.ceil(sumX/puntosSuma)+" "+Math.ceil(sumY/puntosSuma)+"  0");
-//         
-//         System.out.println("usemtl Default");
-//         
-//       
-//       for(int i=0;i<aux.size()-2;i++){
-//            System.out.println("f "+(i+1)+" "+(i+2)+" "+(aux.size()));
-//        }
-//        
+            
+      ////Obtiene la lista de puntos
          aux = Herramientas.ordenarPuntos(aux);
+      ///Obtener la longitud de extremos de la figura    
+        double longitud = Herramientas.getLongitud(aux);
+      //Division
+       // cannyOutput = Divisiones.printMat((int)Herramientas.yMin-5, (int)Herramientas.yMax+5, (int)Herramientas.min-5, (int)Herramientas.max+5, cannyOutput);
+        cannyOutput = Divisiones.generarPuntos((int)Herramientas.yMin-5, (int)Herramientas.yMax+5, (int)Herramientas.min-5, (int)Herramientas.max+5, 
+                      longitud, 15, cannyOutput);
+        //cannyOutput = Divisiones.printMat(33,195,29,368, cannyOutput);
+        //Herramientas.sintaxisOBJ(aux, Herramientas.dividir(Herramientas.getLongitud(aux), aux, 3));
         // Herramientas.sintaxisOBJ(aux);
         // Herramientas.sintaxisOpenGL(aux);
-        Herramientas.sintaxisOBJV2(aux, 185);
+        //Herramientas.sintaxisOBJV2(aux, 185);
         Imgproc.circle(drawing, new Point(sumX/puntosSuma, sumY/puntosSuma), 5, new Scalar(0,0,255), 2, 8, 0);
-        imgContoursLabel.setIcon(new ImageIcon(HighGui.toBufferedImage(drawing)));
+        
+        imgContoursLabel.setIcon(new ImageIcon(HighGui.toBufferedImage(cannyOutput)));
         frame.repaint();
+        
+        ///Este es el original
+       // imgContoursLabel.setIcon(new ImageIcon(HighGui.toBufferedImage(drawing)));
+       // frame.repaint();
         System.out.println("");
     }
     
     
      
-     
+    public void buscarLimitesY(double inferior, double superior, int x, Mat imagenProcesada){
+        for (double i =inferior;i<=superior;i++) {
+           double colores[] = imagenProcesada.get(x, (int)i);
+            
+            for (int j = 0; j < colores.length; j++) {
+                System.out.println(colores[j]); 
+            }
+            
+            System.out.println("");
+        }      
+    } 
         
      
     private void ordenarPuntos(ArrayList<Point> aux){

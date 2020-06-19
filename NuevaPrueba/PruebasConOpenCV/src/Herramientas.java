@@ -20,6 +20,8 @@ import org.opencv.core.Point;
  */
 public class Herramientas {
     
+    public static double  min = 0, max =0, yMin=0, yMax=0;
+    
     public static double distanciaEuclidiana(Point a, Point b){
         return Math.sqrt(Math.pow((double)a.x-b.x,2)+Math.pow((double)a.y-b.y,2));
     }
@@ -112,7 +114,7 @@ public class Herramientas {
         //Eliminar los puntos repetidos de la lista
         aux = Herramientas.limpiarLista(aux);
         
-          System.out.println("TI: "+aux.size());
+         // System.out.println("TI: "+aux.size());
           
         
             ///Elegimos un punto y lo eliminamos de la lista ahora buscamos el punto más cercano.
@@ -137,16 +139,133 @@ public class Herramientas {
         
        
         listaOrdenada.add(aux.get(0));
-        System.out.println("TF: "+listaOrdenada.size());
+       // System.out.println("TF: "+listaOrdenada.size());
         
-          for (int i = 0; i < listaOrdenada.size(); i++) {
-              //System.out.println("Punto: "+listaOrdenada.get(i).x+" "+listaOrdenada.get(i).y);
-              System.out.println("("+listaOrdenada.get(i).x+", "+listaOrdenada.get(i).y+")");
-          }
+//          for (int i = 0; i < listaOrdenada.size(); i++) {
+//              //System.out.println("Punto: "+listaOrdenada.get(i).x+" "+listaOrdenada.get(i).y);
+//              System.out.println("("+listaOrdenada.get(i).x+", "+listaOrdenada.get(i).y+")");
+//          }
         
           return listaOrdenada;
     }
       
+      
+    public static double getLongitud(ArrayList<Point> aux){      
+        double xMin=aux.get(0).x, xMax=aux.get(aux.size()-1).x;
+        double yMinimo = aux.get(0).y, yMaximo = aux.get(0).y;
+        double longitud=0;
+         
+        for (int i = 1; i <aux.size()-1; i++) {
+           
+            ///Para x
+           if(aux.get(i).x<xMin){
+               xMin=aux.get(i).x;
+           }
+           
+           if(aux.get(i).x>xMax){
+               xMax=aux.get(i).x;
+           }
+           
+           //Para y
+           if(aux.get(i).y<yMinimo){
+               yMinimo=aux.get(i).y;
+           }
+           
+           if(aux.get(i).y>yMaximo){
+               yMaximo=aux.get(i).y;
+           }
+        }
+        
+       
+        Herramientas.min = xMin; Herramientas.max = xMax;
+        Herramientas.yMin = yMinimo; Herramientas.yMax = yMaximo;
+        System.out.println("Min: "+xMin+" Max: "+xMax);
+        System.out.println("YMin: "+yMinimo+" yMax: "+yMaximo);
+        longitud = xMax - xMin;
+        System.out.println("Longitud: "+longitud);
+    
+        return longitud;
+    }
+    
+    ///Para subRectangulos
+    public static void sintaxisOBJ(ArrayList<Point> aux, ArrayList<ArrayList<Point>> subRectangulos){
+        ///Imprimir todos los puntos nomas para ver que voy hacer jaja
+        System.out.println("Inicio");
+          for (int i = 0; i <aux.size(); i++) {
+              System.out.println(aux.get(i).toString());    
+        }
+          
+          for (int i = 0; i < subRectangulos.size(); i++) {
+              System.out.println("Sub Rectangulo: "+i);
+              for (int j = 0; j <subRectangulos.get(i).size(); j++ ) {
+                  System.out.println(subRectangulos.get(i).get(j));     
+              }
+     
+        }
+          
+          int indice = 0;
+          ////Aquí viene lo chido
+          for(int i=0;i<subRectangulos.size();i++){
+              //Herramientas.ordenarPuntos(subRectangulos.get(i));
+              Herramientas.sintaxisOBJ(subRectangulos.get(i), indice);
+              indice+=subRectangulos.get(i).size()+1;
+          }
+    }
+    
+    
+    public static ArrayList<ArrayList<Point>> dividir(double distancia, ArrayList<Point> aux, int divisiones){      
+       
+        double lon=distancia/divisiones, limInferior=Herramientas.min, limSuperior=Herramientas.min+lon;
+        int cont=0;
+        ArrayList<ArrayList<Point>> subDivisionesLista = new ArrayList<>();
+        ArrayList<Point> lista;
+         
+        for(int i=0;i<divisiones;i++){
+//            System.out.println("Intento "+i);
+//            System.out.println("Rangos: "+limInferior+" S"+limSuperior);
+              lista = new ArrayList<Point>();
+            for(int j=0;j<aux.size();j++){
+                
+                if(aux.get(j).x<=Math.ceil(limSuperior)+1&&aux.get(j).x>=Math.ceil(limInferior)-1){
+                    System.out.println(aux.get(j).toString());            
+                    lista.add(aux.get(j));              
+                    cont++;
+                }      
+            }
+            
+            if(lista.size()!=0)
+            subDivisionesLista.add(lista);
+            
+            limInferior+=lon;
+            limSuperior+=lon;
+        }    
+       
+        System.out.println("Tamaño: "+aux.size()+" Contador: "+cont+" Sub-Divisiones: "+subDivisionesLista.size());    
+        return subDivisionesLista;
+    }
+      
+    
+     public static void sintaxisOBJ(ArrayList<Point> aux, int indice){
+         double xProm=0, yProm=0;
+          
+        for(int i=0;i<aux.size();i++){
+            System.out.println("v "+aux.get(i).x+" "+aux.get(i).y+" 0");
+            xProm+=aux.get(i).x;
+            yProm+=aux.get(i).y;
+        }
+        
+        System.out.println("v "+Math.ceil(xProm/aux.size())+" "+Math.ceil(yProm/aux.size())+" 0");
+        
+        System.out.println("usemtl Default");
+         
+       
+       for(int i=0;i<aux.size()-1;i++){
+            System.out.println("f "+(i+1+indice)+" "+(i+2+indice)+" "+(aux.size()+indice+1));
+        }
+       
+        System.out.println("f "+(1+indice)+" "+(aux.size()+indice)+" "+(aux.size()+indice+1));
+           
+      }
       
       public static void sintaxisOBJ(ArrayList<Point> aux){
           double xProm=0, yProm=0;
@@ -234,7 +353,6 @@ public class Herramientas {
         System.out.println("f "+1+" "+(aux.size()-1)+" "+((aux.size()*2)+1));
         System.out.println("f "+1+" "+((aux.size()*2)+1)+" "+(aux.size()+2));   
         
-      
       }
       
       
@@ -387,30 +505,3 @@ public class Herramientas {
     }
     
 }
-//
-///*private float colors[] = {
-//
-//               // 0.6f,  0.6f,  0.6f, 0.6f,
-//               // 0.6f,  0.6f,  0.6f, 0.6f,
-//               // 0.6f,  0.6f,  0.6f, 0.6f,
-//               // 0.6f,  0.6f,  0.6f, 0.6f
-//
-//                0.5f,  0.5f,  0.5f,  0.5f,
-//                0.5f,  0.5f,  0.5f,  0.5f,
-//                0.5f,  0.5f,  0.5f,  0.5f,
-//                0.5f,  0.5f,  0.5f,  0.5f,
-//                0.5f,  0.5f,  0.5f,  0.5f,
-//                0.5f,  0.5f,  0.5f,  0.5f,
-//                0.5f,  0.5f,  0.5f,  0.5f,
-//                0.5f,  0.5f,  0.5f,  0.5f,
-//                0.5f,  0.5f,  0.5f,  0.5f
-//
-//               /* 0.0f,  1.0f,  0.0f,  1.0f,
-//                0.0f,  1.0f,  0.0f,  1.0f,
-//                1.0f,  0.5f,  0.0f,  1.0f,
-//                1.0f,  0.5f,  0.0f,  1.0f,
-//                1.0f,  0.0f,  0.0f,  1.0f
-//               /* 1.0f,  0.0f,  0.0f,  1.0f,
-//                0.0f,  0.0f,  1.0f,  1.0f,
-//                1.0f,  0.0f,  1.0f,  1.0f*/
-//        };/*
