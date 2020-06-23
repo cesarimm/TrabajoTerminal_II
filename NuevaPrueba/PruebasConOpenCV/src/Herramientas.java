@@ -42,31 +42,7 @@ public class Herramientas {
     
     
     
-//    
-//        public static void ordenarPuntos(ArrayList<Point> aux){
-//        
-//        ArrayList<Point> listaOrdenada = new ArrayList<Point>();
-//        
-//                  
-//        double distanciaAux = Herramientas.distanciaEuclidiana(aux.get(1), aux.get(2));
-//        int ref = 2;
-//        System.out.println("Distancia temporal: "+distanciaAux);
-//        
-//        double distanciaTemporal = 0;
-//        for(int i=2;i<aux.size()-1;i++){
-//              distanciaTemporal = Herramientas.distanciaEuclidiana(aux.get(1), aux.get(i+1));
-//              System.out.println("Distancia temporal: "+distanciaTemporal);
-//              if(distanciaTemporal<distanciaAux){
-//                  ref = i+1;
-//                  distanciaAux = distanciaTemporal;
-//              }
-//        }
-//           
-//          System.out.println("Distancia menor: "+distanciaAux+" Referencia: "+ref);
-//            
-//    }
-    
- 
+
     
     public static ArrayList<Point> limpiarLista(ArrayList<Point> aux){        
         int contador=0;   
@@ -187,62 +163,9 @@ public class Herramientas {
         return longitud;
     }
     
-    ///Para subRectangulos
-    public static void sintaxisOBJ(ArrayList<Point> aux, ArrayList<ArrayList<Point>> subRectangulos){
-        ///Imprimir todos los puntos nomas para ver que voy hacer jaja
-        System.out.println("Inicio");
-          for (int i = 0; i <aux.size(); i++) {
-              System.out.println(aux.get(i).toString());    
-        }
-          
-          for (int i = 0; i < subRectangulos.size(); i++) {
-              System.out.println("Sub Rectangulo: "+i);
-              for (int j = 0; j <subRectangulos.get(i).size(); j++ ) {
-                  System.out.println(subRectangulos.get(i).get(j));     
-              }
-     
-        }
-          
-          int indice = 0;
-          ////Aquí viene lo chido
-          for(int i=0;i<subRectangulos.size();i++){
-              //Herramientas.ordenarPuntos(subRectangulos.get(i));
-              Herramientas.sintaxisOBJ(subRectangulos.get(i), indice);
-              indice+=subRectangulos.get(i).size()+1;
-          }
-    }
+   
     
-    
-    public static ArrayList<ArrayList<Point>> dividir(double distancia, ArrayList<Point> aux, int divisiones){      
-       
-        double lon=distancia/divisiones, limInferior=Herramientas.min, limSuperior=Herramientas.min+lon;
-        int cont=0;
-        ArrayList<ArrayList<Point>> subDivisionesLista = new ArrayList<>();
-        ArrayList<Point> lista;
-         
-        for(int i=0;i<divisiones;i++){
-//            System.out.println("Intento "+i);
-//            System.out.println("Rangos: "+limInferior+" S"+limSuperior);
-              lista = new ArrayList<Point>();
-            for(int j=0;j<aux.size();j++){
-                
-                if(aux.get(j).x<=Math.ceil(limSuperior)+1&&aux.get(j).x>=Math.ceil(limInferior)-1){
-                    System.out.println(aux.get(j).toString());            
-                    lista.add(aux.get(j));              
-                    cont++;
-                }      
-            }
-            
-            if(lista.size()!=0)
-            subDivisionesLista.add(lista);
-            
-            limInferior+=lon;
-            limSuperior+=lon;
-        }    
-       
-        System.out.println("Tamaño: "+aux.size()+" Contador: "+cont+" Sub-Divisiones: "+subDivisionesLista.size());    
-        return subDivisionesLista;
-    }
+   
       
     
      public static void sintaxisOBJ(ArrayList<Point> aux, int indice){

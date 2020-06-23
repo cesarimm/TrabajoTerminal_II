@@ -39,28 +39,31 @@ import org.opencv.imgproc.Imgproc;
  * @author PC-PUBG
  */
 public class ConvexHull {
- private Mat srcGray = new Mat();
+
+    private Mat srcGray = new Mat();
     private JFrame frame;
     private JLabel imgSrcLabel;
     private JLabel imgContoursLabel;
     private static final int MAX_THRESHOLD = 255;
     private int threshold = 100;
     private Random rng = new Random(12345);
+
     public ConvexHull(String[] args) {
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\cuadrado.jpg";
-       //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\engrane2.jpg";
-       //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\trapecio.jpg";
+        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\engrane2.jpg";
+        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\trapecio.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\trinagulo.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\estrella.png";
-         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\ele.jpg";
+        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\ele.jpg";
         // String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\trapecio.jpg";
-       String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\flecha.jpg";
-      //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\esquinas.jpg";
-      //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\comido.jpg";
-      //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\frasco2.jpg";
-       //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\recorte2.jpg";
+        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\flecha.jpg";
+        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\esquinas.jpg";
+        String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\comido.jpg";
+        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\frasco2.jpg";
+        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\recorte2.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\escalera1.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\Achicada.jpg";
+        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\circulo.jpg";
         Mat src = Imgcodecs.imread(filename);
         if (src.empty()) {
             System.err.println("Cannot read image: " + filename);
@@ -83,7 +86,7 @@ public class ConvexHull {
         frame.setVisible(true);
         update();
     }
-    
+
     private void addComponentsToPane(Container pane, Image img) {
         if (!(pane.getLayout() instanceof BorderLayout)) {
             pane.add(new JLabel("Container doesn't use BorderLayout!"));
@@ -115,8 +118,7 @@ public class ConvexHull {
         imgPanel.add(imgContoursLabel);
         pane.add(imgPanel, BorderLayout.CENTER);
     }
-    
-    
+
     private void update() {
         Mat cannyOutput = new Mat();
         Imgproc.Canny(srcGray, cannyOutput, threshold, threshold * 2);
@@ -135,114 +137,109 @@ public class ConvexHull {
             }
             hullList.add(new MatOfPoint(hullPoints));
         }
-        
-      
-         ArrayList<Point> aux = new ArrayList<Point>();
-        
-         Mat drawing = Mat.zeros(cannyOutput.size(), CvType.CV_8UC3);
-        
-        
-       
+
+        ArrayList<Point> aux = new ArrayList<Point>();
+
+        Mat drawing = Mat.zeros(cannyOutput.size(), CvType.CV_8UC3);
+
         for (int i = 0; i < contours.size(); i++) {
             Scalar color = new Scalar(rng.nextInt(256), rng.nextInt(256), rng.nextInt(256));
             Imgproc.drawContours(drawing, contours, i, color);
             //Imgproc.drawContours(drawing, hullList, i, color );
         }
-        
-      
+
         int mod = 2;
         //Obtener todos los puntos de los diferentes contornos
-        int k=0;
-         for (int i = 0; i < contours.size(); i++) {
+        int k = 0;
+        for (int i = 0; i < contours.size(); i++) {
             List<Point> puntos = contours.get(i).toList();
-             //Obtener los puntos de cada parte del contorno
-             for (int j=0;j<puntos.size();j++){
-               if(k%mod==0){
-                      aux.add(puntos.get(j));
-                   
-                 }
-                    k++;
-             }             
-        }
-         
+            //Obtener los puntos de cada parte del contorno
+            for (int j = 0; j < puntos.size(); j++) {
+                if (k % mod == 0) {
+                    aux.add(puntos.get(j));
 
-       //Calcular el punto medio de la cara solo es para dibujar
-        double sumX=0, sumY=0;
-        int puntosSuma=0;
-      for (int i = 0; i < aux.size(); i++) {
-               Imgproc.circle(drawing, new Point(aux.get(i).x, aux.get(i).y), 5, new Scalar(255,0,0), 2, 8, 0);
-               sumX+=aux.get(i).x;
-               sumY+=aux.get(i).y;
-               puntosSuma++;
-              // System.out.println("X: "+aux.get(i).x+" Y:"+aux.get(i).y);             
+                }
+                k++;
+            }
         }
-            
-      ////Obtiene la lista de puntos
-         aux = Herramientas.ordenarPuntos(aux);
-      ///Obtener la longitud de extremos de la figura    
+
+        //Calcular el punto medio de la cara solo es para dibujar
+        double sumX = 0, sumY = 0;
+        int puntosSuma = 0;
+        for (int i = 0; i < aux.size(); i++) {
+            Imgproc.circle(drawing, new Point(aux.get(i).x, aux.get(i).y), 5, new Scalar(255, 0, 0), 2, 8, 0);
+            sumX += aux.get(i).x;
+            sumY += aux.get(i).y;
+            puntosSuma++;
+            // System.out.println("X: "+aux.get(i).x+" Y:"+aux.get(i).y);             
+        }
+
+        ////Obtiene la lista de puntos
+        aux = Herramientas.ordenarPuntos(aux);
+        ///Obtener la longitud de extremos de la figura    
         double longitud = Herramientas.getLongitud(aux);
-      //Division
-       // cannyOutput = Divisiones.printMat((int)Herramientas.yMin-5, (int)Herramientas.yMax+5, (int)Herramientas.min-5, (int)Herramientas.max+5, cannyOutput);
-        cannyOutput = Divisiones.generarPuntos((int)Herramientas.yMin-5, (int)Herramientas.yMax+5, (int)Herramientas.min-5, (int)Herramientas.max+5, 
-                      longitud, 15, cannyOutput);
+        //Division
+        // cannyOutput = Divisiones.printMat((int)Herramientas.yMin-5, (int)Herramientas.yMax+5, (int)Herramientas.min-5, (int)Herramientas.max+5, cannyOutput);
+        
+//        cannyOutput = Divisiones.generarPuntos((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5, (int) Herramientas.min - 5, (int) Herramientas.max + 5,
+//                longitud, 25, cannyOutput);
+        
+        cannyOutput = Divisiones.generarPuntosEjeY((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5, (int) Herramientas.min - 5, (int) Herramientas.max + 5,
+                longitud, 10, cannyOutput);
+        
         //cannyOutput = Divisiones.printMat(33,195,29,368, cannyOutput);
         //Herramientas.sintaxisOBJ(aux, Herramientas.dividir(Herramientas.getLongitud(aux), aux, 3));
         // Herramientas.sintaxisOBJ(aux);
         // Herramientas.sintaxisOpenGL(aux);
         //Herramientas.sintaxisOBJV2(aux, 185);
-        Imgproc.circle(drawing, new Point(sumX/puntosSuma, sumY/puntosSuma), 5, new Scalar(0,0,255), 2, 8, 0);
-        
+        Imgproc.circle(drawing, new Point(sumX / puntosSuma, sumY / puntosSuma), 5, new Scalar(0, 0, 255), 2, 8, 0);
+
         imgContoursLabel.setIcon(new ImageIcon(HighGui.toBufferedImage(cannyOutput)));
         frame.repaint();
-        
+
         ///Este es el original
-       // imgContoursLabel.setIcon(new ImageIcon(HighGui.toBufferedImage(drawing)));
-       // frame.repaint();
+        // imgContoursLabel.setIcon(new ImageIcon(HighGui.toBufferedImage(drawing)));
+        // frame.repaint();
         System.out.println("");
     }
-    
-    
-     
-    public void buscarLimitesY(double inferior, double superior, int x, Mat imagenProcesada){
-        for (double i =inferior;i<=superior;i++) {
-           double colores[] = imagenProcesada.get(x, (int)i);
-            
+
+    public void buscarLimitesY(double inferior, double superior, int x, Mat imagenProcesada) {
+        for (double i = inferior; i <= superior; i++) {
+            double colores[] = imagenProcesada.get(x, (int) i);
+
             for (int j = 0; j < colores.length; j++) {
-                System.out.println(colores[j]); 
+                System.out.println(colores[j]);
             }
-            
+
             System.out.println("");
-        }      
-    } 
-        
-     
-    private void ordenarPuntos(ArrayList<Point> aux){
-        
+        }
+    }
+
+    private void ordenarPuntos(ArrayList<Point> aux) {
+
         ArrayList<Point> listaOrdenada = new ArrayList<Point>();
-        
+
         double distanciaAux = Herramientas.distanciaEuclidiana(aux.get(0), aux.get(1));
         int ref = 1;
-        
-        for(int j=1;j<aux.size();j++){
-             double distanciaTemporal = 0;
-            for(int i=j;i<aux.size()-1;i++){
-              ///Calculando con todos los puntos 
-               distanciaTemporal = Herramientas.distanciaEuclidiana(aux.get(j), aux.get(i+1));
-              if(distanciaTemporal<distanciaAux){
-                  System.out.println("distanciaMenor: "+distanciaAux);
-                   distanciaAux = distanciaTemporal;
-                   ref = i;
-              }else if(distanciaTemporal==0){
-                  System.out.println("Son iguales");
-                  aux.remove(i+1);
-              }
-           }     
-        }       
+
+        for (int j = 1; j < aux.size(); j++) {
+            double distanciaTemporal = 0;
+            for (int i = j; i < aux.size() - 1; i++) {
+                ///Calculando con todos los puntos 
+                distanciaTemporal = Herramientas.distanciaEuclidiana(aux.get(j), aux.get(i + 1));
+                if (distanciaTemporal < distanciaAux) {
+                    System.out.println("distanciaMenor: " + distanciaAux);
+                    distanciaAux = distanciaTemporal;
+                    ref = i;
+                } else if (distanciaTemporal == 0) {
+                    System.out.println("Son iguales");
+                    aux.remove(i + 1);
+                }
+            }
+        }
     }
-    
-    
-    
-      public static void main(String[] args) {
+
+    public static void main(String[] args) {
         // Load the native OpenCV library
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         // Schedule a job for the event dispatch thread:
@@ -254,5 +251,5 @@ public class ConvexHull {
             }
         });
     }
-    
+
 }
