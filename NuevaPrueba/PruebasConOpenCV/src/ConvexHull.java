@@ -184,7 +184,7 @@ public class ConvexHull {
 //        cannyOutput = Divisiones.generarPuntos((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5, (int) Herramientas.min - 5, (int) Herramientas.max + 5,
 //                longitud, 25, cannyOutput);
         
-        cannyOutput = Divisiones.generarPuntosEjeY((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5, (int) Herramientas.min - 5, (int) Herramientas.max + 5,
+        cannyOutput = Divisiones.generarPuntosY((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5, (int) Herramientas.min - 5, (int) Herramientas.max + 5,
                 longitud, 10, cannyOutput);
         
         //cannyOutput = Divisiones.printMat(33,195,29,368, cannyOutput);

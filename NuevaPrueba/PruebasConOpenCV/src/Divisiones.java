@@ -185,7 +185,7 @@ public class Divisiones {
     
     
     
-    public static Mat generarPuntosEjeY(int x,int xMax, int y, int yMax, double longitud, int divisiones, Mat mat){
+     public static Mat generarPuntosY(int x,int xMax, int y, int yMax, double longitud, int divisiones, Mat mat){
        Mat aux = Mat.zeros(mat.size(), CvType.CV_8U);
        ArrayList<Point> listaPuntos = new ArrayList<Point>();
        
@@ -196,31 +196,31 @@ public class Divisiones {
        
         double lon=longitud/divisiones;
         double xRef[] = new double[divisiones+1];
-               xRef[0]=x+7;
-               xRef[divisiones]=xMax-12;               
+               xRef[0]=x;
+               xRef[divisiones]=xMax+12;               
                
        for(int i=1;i<divisiones;i++){
-           xRef[i]=(lon * i)+y+5;;
+           xRef[i]=(lon * i)+y;;
        }
         
      
-        for (int i = y; i <=yMax; i++) {
+        for (int i = x; i <=xMax; i++) {
              a=b=null;
-            for (int j = x; j < xMax; j++) { 
+            for (int j = y; j < yMax; j++) { 
                 for(int p=0;p<xRef.length;p++){
-                    if((int)xRef[p]==j){
+                    if((int)xRef[p]==i){
                       
                         //System.out.println("xRef: "+xRef[p]);  
                         try{
-                            for (int k = 0; k < mat.get(j, i).length; k++) {
-                             if(mat.get(j, i)[k]!=0){
+                            for (int k = 0; k < mat.get(i, j).length; k++) {
+                             if(mat.get(i, j)[k]!=0){
                           //       System.out.println("x:"+j+" y:"+i+" "+mat.get(j, i)[k]);
                                  //Imgproc.circle(aux, new Point(i,j), 1, new Scalar(255,0,0), 2, 8, 0);
                                  ///Guardar los puntos
                                  if(a==null){
-                                     a = new Point(i, j);
+                                     a = new Point(j, i);
                                  }else{
-                                     b = new Point(i, j);
+                                     b = new Point(j, i);
                                  }
                              }
 
@@ -241,28 +241,7 @@ public class Divisiones {
              
         }
         
-//        ArrayList<Point> puntitos = new ArrayList<Point>();
-//        ///Limpiar puntos de los extremos
-//         for (int i = 0; i <listaPuntos.size(); i++) {
-//             try{
-//               
-//               double xL = listaPuntos.get(i).x;
-//                if(xL<Herramientas.max-10&&xL>Herramientas.min+10){
-//                    System.out.println("x"+listaPuntos.get(i).x+"min "+Herramientas.min+10+" max:"+Herramientas.max);
-//                    puntitos.add(listaPuntos.get(i));
-//                }
-//              
-//             }catch(Exception e){
-//                 
-//             }
-//         }
-//        
-//
-//         listaPuntos = puntitos;
 
-         //puntitos.clear();
-     
-       // System.out.println("Size: "+listaPuntos.size());
          for (int i = 0; i < listaPuntos.size(); i++) {   
            try{
             Imgproc.circle(aux, listaPuntos.get(i), 1, new Scalar(255,0,0), 2, 8, 0);
@@ -274,7 +253,7 @@ public class Divisiones {
         nuevaSintaxisOBJ(listaPuntos, 100.0);
       
         return aux;         
-    }
+   }
    
   
 //   public static Mat generarPuntos(int x,int xMax, int y, int yMax, double longitud, int divisiones, Mat mat){
