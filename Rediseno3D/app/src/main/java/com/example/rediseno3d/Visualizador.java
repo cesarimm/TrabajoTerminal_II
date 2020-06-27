@@ -14,6 +14,7 @@ public class Visualizador extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         float[] vertices={}, colores={};
@@ -34,6 +35,6 @@ public class Visualizador extends AppCompatActivity {
         view.setRenderer(new Renderizador(vertices, colores, indices));
         setContentView(view);
 
-
+        getSupportActionBar().hide();
     }
 }

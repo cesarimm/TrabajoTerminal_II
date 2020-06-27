@@ -18,6 +18,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getSupportActionBar().hide();
+
         this.crearCarpeta();
         if(OpenCVLoader.initDebug()){
             Toast.makeText(getApplicationContext(), "Funcionamiento  correcto", Toast.LENGTH_SHORT).show();
