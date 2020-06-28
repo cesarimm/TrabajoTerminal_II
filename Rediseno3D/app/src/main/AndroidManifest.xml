@@ -28,7 +28,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Visualizador"></activity>
+        <activity android:name=".ProgresoActivity"></activity>
+        <activity android:name=".VistasMenuActivity" />
+        <activity android:name=".Visualizador" />
         <activity android:name=".ObjListActivity" />
         <activity android:name=".CargarImg" />
         <activity

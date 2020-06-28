@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void abrirVentanaCamara(View view){
-        Intent intent = new Intent(this, CameraActivity.class);
+        Intent intent = new Intent(this, VistasMenuActivity .class);
         startActivity(intent);
     }
 

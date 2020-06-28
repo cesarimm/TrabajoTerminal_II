@@ -1,5 +1,6 @@
 package com.example.rediseno3d;
 
+import android.content.Intent;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Environment;
@@ -15,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,8 +29,19 @@ public class CameraActivity extends AppCompatActivity {
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
 
+    public static final int UNA_IMAGEN = 1;
+    public static final int DOS_IMAGEN = 2;
+    public static final int TRES_IMAGEN = 3;
+
+    ///lista con los nombre del arrayList
+    private static ArrayList<String> listaImagenes = new ArrayList<>();
+
     private Camera mCamera;
     private CameraPreview mPreview;
+    private int tipo, contador=0;
+    Button listo, captureButton;
+
+
 
     private Camera.PictureCallback mPicture = new Camera.PictureCallback() {
 
@@ -60,10 +73,22 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
         getSupportActionBar().hide();
-      ///Iniciar lo que esta captando la camara
-        this.iniciarCamara();
+       ///
+        Intent in = getIntent();
+        Bundle b = in.getExtras();
 
-              Button captureButton = (Button) findViewById(R.id.button_capture);
+        if(b!=null){
+            tipo = (int) b.get("TIPO");
+            Toast.makeText(getApplicationContext(), "Vis "+tipo, Toast.LENGTH_LONG).show();
+        }
+
+
+        ///Iniciar lo que esta captando la camara
+        this.iniciarCamara();
+              listo =  (Button) findViewById(R.id.btnListo);
+               captureButton = (Button) findViewById(R.id.button_capture);
+
+              listo.setVisibility(View.INVISIBLE);
               captureButton.setOnClickListener(
                       new View.OnClickListener() {
                           @Override
@@ -72,10 +97,54 @@ public class CameraActivity extends AppCompatActivity {
                                capturarImagen();
                               //Reiniciar la camara
                               iniciarCamara();
+                              contador++;
+                              //listo.setVisibility(View.VISIBLE);
+                              if(tipo==1){
+                                  ///Objetos solidos aquí se va a guardar de una hasta tres imagenes
+                                  if(contador==1)
+                                      listo.setVisibility(View.VISIBLE);
+
+                                  if(contador==3){
+                                      captureButton.setVisibility(View.INVISIBLE);
+                                  }
+
+                              }else if(tipo==2){
+                                   //Cilindros unicamente una imagen
+                                  if(contador==1){
+                                      listo.setVisibility(View.VISIBLE);
+                                      captureButton.setVisibility(View.INVISIBLE);
+                                  }
+
+                              }else if(tipo==3){
+                                  //Donas unicamente 2 imagenes
+                                  if(contador==2){
+                                      listo.setVisibility(View.VISIBLE);
+                                      captureButton.setVisibility(View.INVISIBLE);
+                                  }
+
+                              }else if(tipo==4){
+                                  ////Donas unicamente 3 imagenes
+                                  if(contador==3){
+                                      listo.setVisibility(View.VISIBLE);
+                                      captureButton.setVisibility(View.INVISIBLE);
+                                  }
+                              }
                           }
                       }
               );
 
+
+              listo.setOnClickListener(
+                      new View.OnClickListener() {
+                          @Override
+                          public void onClick(View view) {
+                              Toast.makeText(getApplicationContext(), "Hola: "+contador, Toast.LENGTH_SHORT).show();
+                              Intent intent = new Intent(getApplicationContext(), ProgresoActivity.class);
+                              intent.putExtra("Lista", CameraActivity.listaImagenes);
+                              startActivity(intent);
+                          }
+                      }
+              );
     }
 
    private void iniciarCamara(){
@@ -150,6 +219,7 @@ public class CameraActivity extends AppCompatActivity {
         } else {
             return null;
         }
+        listaImagenes.add(mediaFile.getName());
         return mediaFile;
     }
 

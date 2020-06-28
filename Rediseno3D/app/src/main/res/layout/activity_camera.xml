@@ -60,7 +60,16 @@
             android:background="@drawable/boton_camara"
             />
 
+        <Button
+            android:id="@+id/btnListo"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/check"
+            android:textSize="8dp"/>
+
     </LinearLayout>
+
 </RelativeLayout>
 
 <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

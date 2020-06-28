@@ -187,6 +187,9 @@ public class ConvexHull {
         cannyOutput = Divisiones.generarPuntosY((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5, (int) Herramientas.min - 5, (int) Herramientas.max + 5,
                 longitud, 10, cannyOutput);
         
+        Mat resizeImg = new Mat();
+        Size sz = new Size(100,50);
+        Imgproc.resize(cannyOutput, resizeImg, sz );
         //cannyOutput = Divisiones.printMat(33,195,29,368, cannyOutput);
         //Herramientas.sintaxisOBJ(aux, Herramientas.dividir(Herramientas.getLongitud(aux), aux, 3));
         // Herramientas.sintaxisOBJ(aux);
@@ -194,7 +197,7 @@ public class ConvexHull {
         //Herramientas.sintaxisOBJV2(aux, 185);
         Imgproc.circle(drawing, new Point(sumX / puntosSuma, sumY / puntosSuma), 5, new Scalar(0, 0, 255), 2, 8, 0);
 
-        imgContoursLabel.setIcon(new ImageIcon(HighGui.toBufferedImage(cannyOutput)));
+        imgContoursLabel.setIcon(new ImageIcon(HighGui.toBufferedImage(resizeImg)));
         frame.repaint();
 
         ///Este es el original

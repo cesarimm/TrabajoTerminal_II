@@ -29,7 +29,7 @@ public class Visualizador extends AppCompatActivity {
             vertices = (float[]) b.get("Vertices");
             colores = (float[]) b.get("Colores");
             indices = (byte[]) b.get("Indices");
-            Toast.makeText(getApplicationContext(), "Vis ", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "Vis ", Toast.LENGTH_LONG).show();
         }
 
         view.setRenderer(new Renderizador(vertices, colores, indices));
