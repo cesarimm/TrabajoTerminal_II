@@ -56,9 +56,9 @@ public class ConvexHull {
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\estrella.png";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\ele.jpg";
         // String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\trapecio.jpg";
-        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\flecha.jpg";
+        String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\flecha.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\esquinas.jpg";
-        String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\comido.jpg";
+        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\comido.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\frasco2.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\recorte2.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\escalera1.jpg";
@@ -122,6 +122,7 @@ public class ConvexHull {
     private void update() {
         Mat cannyOutput = new Mat();
         Imgproc.Canny(srcGray, cannyOutput, threshold, threshold * 2);
+        System.out.println("Threshold: "+threshold);
         List<MatOfPoint> contours = new ArrayList<>();
         Mat hierarchy = new Mat();
         Imgproc.findContours(cannyOutput, contours, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
@@ -188,8 +189,11 @@ public class ConvexHull {
                 longitud, 10, cannyOutput);
         
         Mat resizeImg = new Mat();
-        Size sz = new Size(100,50);
+        Size sz = new Size(100,150);
         Imgproc.resize(cannyOutput, resizeImg, sz );
+        
+        //ConvexHull.rotate(resizeImg, 90);
+        
         //cannyOutput = Divisiones.printMat(33,195,29,368, cannyOutput);
         //Herramientas.sintaxisOBJ(aux, Herramientas.dividir(Herramientas.getLongitud(aux), aux, 3));
         // Herramientas.sintaxisOBJ(aux);
@@ -197,8 +201,10 @@ public class ConvexHull {
         //Herramientas.sintaxisOBJV2(aux, 185);
         Imgproc.circle(drawing, new Point(sumX / puntosSuma, sumY / puntosSuma), 5, new Scalar(0, 0, 255), 2, 8, 0);
 
-        imgContoursLabel.setIcon(new ImageIcon(HighGui.toBufferedImage(resizeImg)));
-        frame.repaint();
+        this.rotate(resizeImg, 90);
+       ///Aqui 
+        //imgContoursLabel.setIcon(new ImageIcon(HighGui.toBufferedImage(resizeImg)));
+        //frame.repaint();
 
         ///Este es el original
         // imgContoursLabel.setIcon(new ImageIcon(HighGui.toBufferedImage(drawing)));
@@ -217,6 +223,32 @@ public class ConvexHull {
             System.out.println("");
         }
     }
+    
+    
+    
+    
+    
+    
+    public  void rotate(Mat image, double angle) {
+    //Calculate size of new matrix
+    double radians = Math.toRadians(angle);
+    double sin = Math.abs(Math.sin(radians));
+    double cos = Math.abs(Math.cos(radians));
+
+    int newWidth = (int) (image.width() * cos + image.height() * sin);
+    int newHeight = (int) (image.width() * sin + image.height() * cos);
+
+    // rotating image
+    Point center = new Point(newWidth / 2, newHeight / 2);
+    Mat rotMatrix = Imgproc.getRotationMatrix2D(center, angle, 1.0); //1.0 means 100 % scale
+
+    Size size = new Size(newWidth, newHeight*1.5);
+    Imgproc.warpAffine(image, image, rotMatrix, size);
+    
+     imgContoursLabel.setIcon(new ImageIcon(HighGui.toBufferedImage(image)));
+      frame.repaint();
+   
+}
 
     private void ordenarPuntos(ArrayList<Point> aux) {
 
