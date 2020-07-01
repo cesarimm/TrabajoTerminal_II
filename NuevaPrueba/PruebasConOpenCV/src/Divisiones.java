@@ -250,7 +250,8 @@ public class Divisiones {
         }
        }
         
-        nuevaSintaxisOBJ(listaPuntos, 100.0);
+        //nuevaSintaxisOBJ(listaPuntos, 100.0);
+        Rotaciones.generarSintaxisCilindrosOBJ(listaPuntos);
       
         return aux;         
    }

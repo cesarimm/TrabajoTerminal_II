@@ -27,6 +27,10 @@ public class Herramientas {
     }
     
     
+    public static Point puntoMedio(Point a, Point b){
+        return new Point(Math.round((a.x+b.x)/2), Math.round((a.y+b.y)/2));
+    }
+    
     private  static ArrayList<Point> ordenar(ArrayList<Point> a){ 
          for (int i=0; i < a.size()-1;i++){
               for(int j=0; j < a.size()-1;j++){
@@ -402,6 +406,9 @@ public class Herramientas {
 
           System.out.println("");
        }
+       
+       
+       
      
     
     public static void main(String args[]){

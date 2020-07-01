@@ -9,6 +9,38 @@ public class Herramientas {
     ///Los 4 extremos en el eje "X" y eje "Y"
     public static double  min = 0, max =0, yMin=0, yMax=0;
 
+    public static double getOnlyLongitud(ArrayList<Point> aux){
+
+        double xMin=aux.get(0).x, xMax=aux.get(aux.size()-1).x;
+        double yMinimo = aux.get(0).y, yMaximo = aux.get(0).y;
+        double longitud=0;
+
+        for (int i = 1; i <aux.size()-1; i++) {
+
+            ///Para x
+            if(aux.get(i).x<xMin){
+                xMin=aux.get(i).x;
+            }
+
+            if(aux.get(i).x>xMax){
+                xMax=aux.get(i).x;
+            }
+
+            //Para y
+            if(aux.get(i).y<yMinimo){
+                yMinimo=aux.get(i).y;
+            }
+
+            if(aux.get(i).y>yMaximo){
+                yMaximo=aux.get(i).y;
+            }
+        }
+
+        longitud = xMax - xMin;
+
+        return longitud;
+    }
+
     public static double getLongitud(ArrayList<Point> aux){
 
         double xMin=aux.get(0).x, xMax=aux.get(aux.size()-1).x;

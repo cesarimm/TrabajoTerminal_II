@@ -51,7 +51,7 @@ public class CargarImg extends AppCompatActivity {
 
     public void probarPreprocesamiento(){
 
-        Mat mat = Preprocesamiento.preProceamiento("engrane2.jpg");
+        Mat mat = Preprocesamiento.preProceamiento("IMG_20200629_195356.jpg");
 
         ArrayList<Point> aux = Procesamiento.convexHull(mat);
 
@@ -62,7 +62,19 @@ public class CargarImg extends AppCompatActivity {
                                          (int) Herramientas.min - 5, (int) Herramientas.max + 5,
                                           longitud, 28, mat);
 
-        String sOBJ = SintaxisOBJ.sintaxisOBJSolidos(listaPuntos, 100);
+        //Imagen2
+        Mat imagen2 = Preprocesamiento.preProceamiento("IMG_20200629_195413.jpg");
+        ArrayList<Point> aux2 = Procesamiento.convexHull(imagen2);
+        aux2 = Herramientas.ordenarPuntos(aux2);
+        double distancia = Herramientas.getOnlyLongitud(aux2);
+
+        //Imagen3
+        Mat imagen3 = Preprocesamiento.preProceamiento("IMG_20200629_195436.jpg");
+        ArrayList<Point> aux3 = Procesamiento.convexHull(imagen2);
+        aux3 = Herramientas.ordenarPuntos(aux3);
+        double distancia2 = Herramientas.getOnlyLongitud(aux3);
+
+        String sOBJ = SintaxisOBJ.sintaxisOBJSolidos(listaPuntos, (distancia+distancia2)/2);
 
         Archivos.crearArchvoOBJ("andro.obj", sOBJ);
 

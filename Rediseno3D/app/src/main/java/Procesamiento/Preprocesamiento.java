@@ -18,8 +18,8 @@ import java.io.File;
 public class Preprocesamiento {
 
     public static Mat preProceamiento(String nameFile){
-        File file = new File(Environment.getExternalStorageDirectory() + "/R3D/imagenes/IMG_20200628_184049.jpg");
-        //File file = new File(Environment.getExternalStorageDirectory() + "/R3D/imagenes/"+nameFile);
+        //File file = new File(Environment.getExternalStorageDirectory() + "/R3D/imagenes/IMG_20200629_195356.jpg");
+        File file = new File(Environment.getExternalStorageDirectory() + "/R3D/imagenes/"+nameFile);
         ImageView imageView;
         Bitmap  imagenBitmap=null;
 
