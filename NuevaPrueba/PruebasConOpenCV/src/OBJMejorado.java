@@ -19,11 +19,14 @@ public class OBJMejorado {
         double xMin=yz.get(0).x, xMax=yz.get(xy.size()-1).x;
         double yMinimo = xy.get(0).y, yMaximo = xy.get(0).y;
         
+        String planoXy="", planoYz="", relacionCaras="";
+        
+        
         
         ///Generar los vertices de la primera cara del plano xy
           for(int i=0;i<xy.size();i++){
-            System.out.println("v "+xy.get(i).x+" "+xy.get(i).y+" 0");
-            
+            //System.out.println("v "+xy.get(i).x+" "+xy.get(i).y+" 0");
+            planoXy+="v "+xy.get(i).x+" "+xy.get(i).y+" 0\n";
               //Obtener los valores para Y
            if(xy.get(i).y<yMinimo){
                yMinimo=xy.get(i).y;
@@ -37,8 +40,8 @@ public class OBJMejorado {
          
         ///Generarlos vertices de la primera cara del plano yz
           for(int i=0;i<yz.size();i++){
-            System.out.println("v 0 "+yz.get(i).y+" "+yz.get(i).x);
-            
+            //System.out.println("v 0 "+yz.get(i).y+" "+yz.get(i).x);
+            planoYz+="v 0 "+yz.get(i).y+" "+yz.get(i).x+"\n";
             //Obtener los valores minimos y maximos en el eje de las x
             if(yz.get(i).x<xMin){
                xMin=yz.get(i).x;
@@ -56,7 +59,8 @@ public class OBJMejorado {
              ///Generar los verices de la segunda cara del plano xy
               double longitud = xMax - xMin;          
            for(int i=0;i<xy.size();i++){
-                System.out.println("v "+xy.get(i).x+" "+xy.get(i).y+" "+longitud);             
+                //System.out.println("v "+xy.get(i).x+" "+xy.get(i).y+" "+longitud);
+                planoXy+="v "+xy.get(i).x+" "+xy.get(i).y+" "+longitud+"\n";
            }
            
            
@@ -76,44 +80,58 @@ public class OBJMejorado {
            ///Generar los verices de la segunda cara del plano yz  
             longitud = yMaximo - yMinimo;
           for(int i=0;i<yz.size();i++){
-            System.out.println("v "+cambio+" "+yz.get(i).y+" "+yz.get(i).x);        
+            //System.out.println("v "+cambio+" "+yz.get(i).y+" "+yz.get(i).x);
+            planoYz+="v "+cambio+" "+yz.get(i).y+" "+yz.get(i).x+"\n";
            } 
           
-          ///GENERAR LAS CARAS
-        int referencia =0, auxReferencia;
-        //Primera cara del plano xy
-          for(int i=0;i<(xy.size()-2);i++){
-            System.out.println("f "+(i+1)+" "+(i+2)+" "+(i+3));
-            referencia++;
-        }
-         
-         
-        //Primera cara del plano yz
-         // System.out.println("Aqui");
-          auxReferencia = referencia;
-          for(int i=auxReferencia+2;i<auxReferencia+yz.size();i++){
-            System.out.println("f "+(i+1)+" "+(i+2)+" "+(i+3));
-            referencia++;
-        }
+          System.out.println(planoXy);
+          System.out.println(planoYz);
+          ///Generar las caras
           
-         
-         
-            //Segunda  cara del plano xy
-             //System.out.println("Aqui");            
-             auxReferencia = referencia;
-         for(int i=auxReferencia+4;i<auxReferencia+xy.size()+2;i++){
+          //Caras del plano XY
+           for(int i=0;i<(xy.size()-2);i++){
             System.out.println("f "+(i+1)+" "+(i+2)+" "+(i+3));
-            referencia++;
+           }
+           
+           
+           for(int i=(xy.size());i<(xy.size()-1)*2;i++){
+            System.out.println("f "+(i+1)+" "+(i+2)+" "+(i+3));
+           }
+           
+                       
+           //Caras del plano YZ
+             for(int i=xy.size()*2;i<(xy.size()*2)+(yz.size()-2);i++){
+            System.out.println("f "+(i+1)+" "+(i+2)+" "+(i+3));
+           
         }
-         
-         
-         //Segunda cara del plano xy
-           //System.out.println("Aqui");
-          auxReferencia = referencia;
-          for(int i=auxReferencia+6;i<auxReferencia+yz.size()+4;i++){
+             
+             for(int i=xy.size()*2+yz.size();i<(xy.size()*2)+(yz.size()-1)*2;i++){
             System.out.println("f "+(i+1)+" "+(i+2)+" "+(i+3));
-            referencia++;
-        }       
+        }  
+         
+             
+             
+        //Union entrre las caras laterales
+        
+            for(int i=0;i<xy.size()-2;i++){
+                if(xy.get(i).x>cambio){
+                    System.out.println("f "+(i+1)+" "+(i+3)+" "+(xy.size()+(i+1)));
+                    System.out.println("f "+(xy.size()+(i+1))+" "+(xy.size()+(i+3))+" "+(i+3));
+                }        
+        }
+        
+         for(int i=xy.size()*2;i<(xy.size()*2)+(yz.size()-2);i++){
+            System.out.println("f "+(i+1)+" "+(i+3)+" "+(yz.size()+(i+1)));
+            System.out.println("f "+(yz.size()+(i+1))+" "+(yz.size()+(i+3))+" "+(i+3));    
+        }
+        
+
+        ///Ultima cara
+        //System.out.println("f "+(1)+" "+(2)+" "+(xy.size()+1));
+        // System.out.println("f "+(xy.size()+1)+" "+(xy.size()+2)+" "+2);
+        
+         System.out.println("f "+(xy.size()-2)+" "+(xy.size()-1)+" "+((2*xy.size())-2));
+         System.out.println("f "+((2*xy.size())-2)+" "+((2*xy.size())-1)+" "+(xy.size()-1));     
     }
     
     

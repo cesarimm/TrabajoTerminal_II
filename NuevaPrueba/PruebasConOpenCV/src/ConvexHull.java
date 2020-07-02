@@ -52,7 +52,7 @@ public class ConvexHull {
     public ConvexHull(String[] args) {
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\cuadrado.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\engrane2.jpg";
-        String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\llanta.jpg";
+        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\llanta.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\trapecio.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\trinagulo.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\estrella.png";
@@ -67,7 +67,7 @@ public class ConvexHull {
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\recorte2.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\escalera1.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\Achicada.jpg";
-        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\circulo.jpg";
+        String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\circulo.jpg";
         Mat src = Imgcodecs.imread(filename);
         if (src.empty()) {
             System.err.println("Cannot read image: " + filename);
@@ -188,7 +188,7 @@ public class ConvexHull {
         
         ///CONTORNOS
         double yProm=0, xProm=0;
-        int totalPuntos=0,  rango=5, mod = 5, refMod=0;
+        int totalPuntos=0,  rango=5, mod = 1, refMod=0;
          for (int i = 0; i < contours.size(); i++) {
             List<Point> puntos = contours.get(i).toList();  
             //Obtener los puntos de cada parte del contorno
@@ -282,8 +282,8 @@ public class ConvexHull {
         aux = Herramientas.ordenarPuntos(aux);
         ///Obtener la longitud de extremos de la figura    
         //double longitud = Herramientas.getLongitud(aux);
-        Herramientas.sintaxisOBJV2(aux, 100);
-        //Herramientas.sintaxisDonasOBJ(aux);
+        //Herramientas.sintaxisOBJV2(aux, 100);
+        Herramientas.sintaxisDonasOBJ(aux);
         //Division
         // cannyOutput = Divisiones.printMat((int)Herramientas.yMin-5, (int)Herramientas.yMax+5, (int)Herramientas.min-5, (int)Herramientas.max+5, cannyOutput);
         
