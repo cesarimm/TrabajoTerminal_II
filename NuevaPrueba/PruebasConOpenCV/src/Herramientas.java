@@ -409,6 +409,30 @@ public class Herramientas {
        
        
        
+ public static void sintaxisDonasOBJ(ArrayList<Point> aux){
+          double xProm=0, yProm=0;
+          
+        for(int i=0;i<aux.size();i++){
+            System.out.println(" v "+aux.get(i).x+" "+aux.get(i).y+" 0");
+            xProm+=aux.get(i).x;
+            yProm+=aux.get(i).y;
+        }
+        
+        System.out.println("v "+Math.ceil(xProm/aux.size())+" "+Math.ceil(yProm/aux.size())+" 0");
+        
+        System.out.println("usemtl Default");
+         
+       
+       for(int i=0;i<aux.size()-1;i++){
+            System.out.println("f "+(i+1)+" "+(i+2)+" "+(aux.size()+1));
+        }
+       
+        System.out.println("f "+1+" "+aux.size()+" "+(aux.size()+1));
+        
+        
+        System.out.println("v "+Math.ceil(xProm/aux.size())+" "+Math.ceil(yProm/aux.size())+" 0");
+      }
+       
      
     
     public static void main(String args[]){

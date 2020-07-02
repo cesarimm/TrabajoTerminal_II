@@ -74,7 +74,7 @@ class CornerHarris {
         Imgproc.Canny(srcFiltrado, srcGray, 50, 150);
         
         
-        ///Para buscar y dibujar circulos 
+//        //Para buscar y dibujar circulos 
 //        Mat circleOut = new Mat();
 //        Imgproc.HoughCircles(srcFiltrado, circleOut, Imgproc.HOUGH_GRADIENT, (double)srcFiltrado.rows()/16, 100.0, 30.0, 1, 30);
 //        
