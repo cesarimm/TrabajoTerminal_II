@@ -47,10 +47,10 @@ public class ProgresoActivity extends AppCompatActivity {
         if(tipo==1){
             procesoTipo1(28);
         }if(tipo==2){
-            procesoTipo2(60);
+            procesoTipo2(30);
         }
 
-
+        ///lista.clear();
         tv =(TextView) findViewById(R.id.textViewArchivos);
         tv.setText(aux);
     }
@@ -119,25 +119,25 @@ public class ProgresoActivity extends AppCompatActivity {
         aux = Herramientas.ordenarPuntos(aux);
         double longitud = Herramientas.getLongitud(aux);
 
-        Mat auxMat = SubRectangulos.generarPuntosY((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5,
+        ArrayList<Point> auxMat = SubRectangulos.pruebaColorear((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5,
                 (int) Herramientas.min - 5, (int) Herramientas.max + 5,
-                longitud, divisiones, mat);
+                mat, divisiones);
 
         //Toast.makeText(getApplicationContext(), ""+auxMat.size(), Toast.LENGTH_SHORT).show();
 
-        //String sObj = SintaxisOBJ.generarSintaxisCilindrosOBJ(auxMat);
+        String sObj = SintaxisOBJ.generarSintaxisCilindrosOBJ(auxMat);
 
 
         String nombreArchivo="";
 
         if(divisiones==4){
             nombreArchivo = generarNombreArchivo("baja");
-        }else if(divisiones==60){
+        }else if(divisiones==30){
             nombreArchivo = generarNombreArchivo("alta");
         }
 
-        Archivos.crearArchvoOBJ(nombreArchivo, "");
-        //Toast.makeText(getApplicationContext(), "Archivo creado", Toast.LENGTH_SHORT).show();
+        Archivos.crearArchvoOBJ(nombreArchivo, sObj);
+        Toast.makeText(getApplicationContext(), "Archivo creado", Toast.LENGTH_SHORT).show();
     }
 
 

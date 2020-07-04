@@ -149,9 +149,11 @@ public class CargarImg extends AppCompatActivity {
 
         //IMG_20200703_200630
         //IMG_20200703_132315
+        ///IMG_20200704_124513
+        ///IMG_20200704_124623
         String sOBJ="";
 
-        Mat mat = Preprocesamiento.preProceamiento("IMG_20200703_162948.jpg");
+        Mat mat = Preprocesamiento.preProceamiento("IMG_20200704_124513.jpg");
 
         ArrayList<Point> aux = Procesamiento.convexHull(mat);
 
@@ -159,18 +161,16 @@ public class CargarImg extends AppCompatActivity {
 
         double longitud = Herramientas.getLongitud(aux);
 
-       // mat = SubRectangulos.colorearContorno((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5,
-         //       (int) Herramientas.min - 5, (int) Herramientas.max + 5,
-           //     mat);
-
-        ArrayList<Point> auxMat = SubRectangulos.pruebaColorear((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5,
-                (int) Herramientas.min - 5, (int) Herramientas.max + 5,
-                mat);
-
-        String sObj = SintaxisOBJ.generarSintaxisCilindrosOBJ(auxMat);
+        mat = SubRectangulos.pruebMat((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5,
+               (int) Herramientas.min - 5, (int) Herramientas.max + 5,
+               mat, 10);
 
 
-        Archivos.crearArchvoOBJ("torniooo.obj", sObj);
+
+       // String sObj = SintaxisOBJ.generarSintaxisCilindrosOBJ(auxMat);
+
+
+        //Archivos.crearArchvoOBJ("cuadenta.obj", sObj);
 
         // mat = SubRectangulos.generarPuntosY((int) Herramientas.yMin - 10, (int) Herramientas.yMax + 10,
             //    (int) Herramientas.min - 10, (int) Herramientas.max + 10,

@@ -251,7 +251,7 @@ public class SubRectangulos {
 
     }
 
-    public static ArrayList<Point> pruebaColorear(int x,int xMax, int y, int yMax, Mat mat){
+    public static ArrayList<Point> pruebaColorear(int x, int xMax, int y, int yMax, Mat mat, int divisiones){
         //System.out.println("");
         ArrayList<Point> puntos = new ArrayList<>();
         Point a=null, b=null;
@@ -286,18 +286,93 @@ public class SubRectangulos {
             }
         }
 
-        for(int i=0;i<puntos.size();i++){
+        ////Generar las divisiones
+        ArrayList<Point> listaLimpia= new ArrayList<>();
+
+
+         int longitud = puntos.size()/2;
+         int incremento = longitud/divisiones;
+         int ref=0;
+        for (int i = 0; i < divisiones; i++) {
+            if(ref!=puntos.size()-1){
+                listaLimpia.add(puntos.get(ref));
+                listaLimpia.add(puntos.get(ref+1));
+            }
+            ref+=incremento*2;
+        }
+
+        return listaLimpia;
+
+    }
+
+
+    public static Mat pruebMat(int x, int xMax, int y, int yMax, Mat mat, int divisiones){
+        //System.out.println("");
+        ArrayList<Point> puntos = new ArrayList<>();
+        Point a=null, b=null;
+
+        Mat aux = Mat.zeros(mat.size(), CvType.CV_8U);
+        //Mat aux = mat;
+        for (int i = x; i <=xMax; i++) {
+            a=null;
+            b=null;
+            for (int j = y; j < yMax; j++) {
+                try{
+                    for (int k = 0; k < mat.get(i, j).length; k++) {
+                        if(mat.get(i, j)[k]!=0){
+                            //System.out.println("x:"+j+" y:"+i+" "+mat.get(j, i)[k]);
+                            //Imgproc.circle(aux, new Point(i,j), 3, new Scalar(255,0,0), 2, 8, 0);
+                            if(a==null){
+                                a = new Point(j,i);
+                            }else{
+                                b = new Point(j,i);
+                            }
+                        }
+                    }
+                }catch(Exception e){
+
+                }
+
+            }
+            if(a!=null&&b!=null){
+                puntos.add(a);
+                puntos.add(b);
+
+            }
+        }
+
+        ////Generar las divisiones
+        ArrayList<Point> listaLimpia= new ArrayList<>();
+
+
+        int longitud = puntos.size()/2;
+        int incremento = longitud/divisiones;
+        int ref=0;
+        for (int i = 0; i < divisiones; i++) {
+            if(ref!=puntos.size()-1){
+                listaLimpia.add(puntos.get(ref));
+                listaLimpia.add(puntos.get(ref+1));
+            }
+            ref+=incremento*2;
+        }
+
+
+
+        for(int i=0;i<listaLimpia.size();i++){
             try{
-                Imgproc.circle(aux, puntos.get(i), 1, new Scalar(255,0,0), 2, 8, 0);
+                Imgproc.circle(aux, listaLimpia.get(i), 1, new Scalar(255,0,0), 2, 8, 0);
             }catch(Exception e){
 
             }
         }
 
+        //puntos.clear();
+
         // Imgproc.circle(aux, new Point(142,50), 5, new Scalar(0,255,10), 2, 8, 0);
 
-        return puntos;
+        return aux;
 
     }
+
 
 }

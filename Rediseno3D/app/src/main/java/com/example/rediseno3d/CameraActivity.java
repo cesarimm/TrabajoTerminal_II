@@ -142,6 +142,7 @@ public class CameraActivity extends AppCompatActivity {
                               Intent intent = new Intent(getApplicationContext(), ProgresoActivity.class);
                               intent.putExtra("Lista", CameraActivity.listaImagenes);
                               intent.putExtra("Tipo", tipo);
+                              //CameraActivity.listaImagenes.clear();
                               startActivity(intent);
                           }
                       }

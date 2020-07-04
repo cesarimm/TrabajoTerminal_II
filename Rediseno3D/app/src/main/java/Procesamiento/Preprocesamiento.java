@@ -64,14 +64,17 @@ public class Preprocesamiento {
             //rotacion(rgba, 270);
 
 
-            Imgproc.cvtColor(rgba,grayMat,Imgproc.COLOR_BGR2GRAY);
+            Imgproc.cvtColor(rgba,rgba,Imgproc.COLOR_BGR2GRAY);
 
-            Imgproc.blur(grayMat, rgba, new Size(3, 3));
 
-            Imgproc.Canny(rgba, grayMat, 100, 200);
+            //Imgproc.blur(rgba,grayMat, new Size(3, 3));
+
+            Imgproc.medianBlur(rgba,grayMat, 7);
+
+            Imgproc.Canny(grayMat, rgba,  80, 180);
 
             file = null;
-            return grayMat;
+            return rgba;
 
         }
     }
