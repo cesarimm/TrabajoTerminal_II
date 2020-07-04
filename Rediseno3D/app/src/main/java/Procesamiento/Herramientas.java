@@ -95,6 +95,13 @@ public class Herramientas {
         return Math.sqrt(Math.pow((double)a.x-b.x,2)+Math.pow((double)a.y-b.y,2));
     }
 
+
+    ///Funcion para obtener el punto medio entre dos puntos
+    public static Point puntoMedio(Point a, Point b){
+        return new Point(Math.round((a.x+b.x)/2), Math.round((a.y+b.y)/2));
+    }
+
+
     ///Funcion auxiliar para el ordenamiento de puntos
     public static int regresarReferencia(Point aux, ArrayList<Point> lista){
         int referencia = 0, j = 1;

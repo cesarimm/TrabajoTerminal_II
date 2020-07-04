@@ -141,6 +141,7 @@ public class CameraActivity extends AppCompatActivity {
                               Toast.makeText(getApplicationContext(), "Hola: "+contador, Toast.LENGTH_SHORT).show();
                               Intent intent = new Intent(getApplicationContext(), ProgresoActivity.class);
                               intent.putExtra("Lista", CameraActivity.listaImagenes);
+                              intent.putExtra("Tipo", tipo);
                               startActivity(intent);
                           }
                       }

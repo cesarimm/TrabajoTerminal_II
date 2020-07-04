@@ -57,8 +57,11 @@ public class Rotaciones {
       String texto = "";
       int cont=0, longitud=0;
       
-      for(int i=0;i<aux.size();i+=2){
-          a = new Point(aux.get(i).x, 0);
+      System.out.println("Tamañito: "+aux.size());
+      
+      for(int i=0;i<aux.size()-2;i+=2){
+          try{
+            a = new Point(aux.get(i).x, 0);
           b = new Point(aux.get(i+1).x, 0);
           
           Point medio = Herramientas.puntoMedio(a, b);
@@ -70,25 +73,37 @@ public class Rotaciones {
           }
           
           cont++;
-          longitud = pCir.size();
+          longitud = pCir.size();  
+          }catch(Exception e){
+              
+          }
+          
       }
       
       texto+="usemtl Default\n";
       
+      
+      
       int contAux=0;
+      int limite =  longitud*(cont-1);
       for(int i=1;i<cont;i++){
           for (int j = contAux; j < longitud*i; j++) {
-              texto+="f "+(j+1)+" "+(j+2)+" "+(longitud+(j+1))+"\n";
+              if(limite-1!=contAux){
+                  texto+="f "+(j+1)+" "+(j+2)+" "+(longitud+(j+1))+"\n";
               texto+="f "+(longitud+(j+1))+" "+(longitud+(j+2))+" "+(j+2)+"\n";
+              contAux++;
+              }
+              
             //System.out.println("f "+(j+1)+" "+(j+2)+" "+(longitud+(j+1)));
             //System.out.println("f "+(longitud+(j+1))+" "+(longitud+(j+2))+" "+(j+2));
-            contAux++;
+            
           }
           System.out.println("");
       }
           
       
       System.out.println(texto);
+      //System.out.println("Cont: "+contAux+" Lim: "+limite);
       
   }
  

@@ -28,16 +28,16 @@ public class Divisiones {
                    for (int k = 0; k < mat.get(j, i).length; k++) {
                     if(mat.get(j, i)[k]!=0){
                         System.out.println("x:"+j+" y:"+i+" "+mat.get(j, i)[k]);
-                        //Imgproc.circle(aux, new Point(i,j), 5, new Scalar(255,0,0), 2, 8, 0);
-                        if(i==142){
-                          Imgproc.circle(aux, new Point(142,j), 5, new Scalar(255, 0, 0), 2, 8, 0);  
-                        }else if(i==255){
-                            Imgproc.circle(aux, new Point(255,j), 5, new Scalar(255, 0, 0), 2, 8, 0);
-                        }else if(i==31){
-                            Imgproc.circle(aux, new Point(29,j), 5, new Scalar(255, 0, 0), 2, 8, 0);
-                        }else if(i==368){
-                            Imgproc.circle(aux, new Point(255,j), 5, new Scalar(255, 0, 0), 2, 8, 0);
-                        }
+                        Imgproc.circle(aux, new Point(i,j), 1, new Scalar(255,0,0), 2, 8, 0);
+//                        if(i==142){
+//                          Imgproc.circle(aux, new Point(142,j), 5, new Scalar(255, 0, 0), 2, 8, 0);  
+//                        }else if(i==255){
+//                            Imgproc.circle(aux, new Point(255,j), 5, new Scalar(255, 0, 0), 2, 8, 0);
+//                        }else if(i==31){
+//                            Imgproc.circle(aux, new Point(29,j), 5, new Scalar(255, 0, 0), 2, 8, 0);
+//                        }else if(i==368){
+//                            Imgproc.circle(aux, new Point(255,j), 5, new Scalar(255, 0, 0), 2, 8, 0);
+//                        }
                     }
                     
                 } 
@@ -251,6 +251,7 @@ public class Divisiones {
        }
         
         //nuevaSintaxisOBJ(listaPuntos, 100.0);
+         System.out.println("");
         Rotaciones.generarSintaxisCilindrosOBJ(listaPuntos);
       
         return aux;         

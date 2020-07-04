@@ -57,6 +57,7 @@ public class Preprocesamiento {
             ///Setear el tamaño de la imagen
 
 
+            //Size sz = new Size(800, 400);
             Size sz = new Size(800, 400);
             Imgproc.resize(nuevo, rgba, sz);
             ///De esta o de la otra manera funcionan
@@ -93,6 +94,8 @@ public class Preprocesamiento {
         Size size = new Size(750, 950);
         Imgproc.warpAffine(imagen, imagen, rotMatrix, size);
     }
+
+
 
 }
 

@@ -46,12 +46,13 @@ public class CargarImg extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.imagenCargar);
         OpenCVLoader.initDebug();
         //crearCarpeta();
-        probarPreprocesamiento();
+        //probarPreprocesamiento();
+        pruebaCilindros();
     }
 
     public void probarPreprocesamiento(){
 
-        Mat mat = Preprocesamiento.preProceamiento("IMG_20200629_195356.jpg");
+        Mat mat = Preprocesamiento.preProceamiento("embudo.jpg");
 
         ArrayList<Point> aux = Procesamiento.convexHull(mat);
 
@@ -89,7 +90,7 @@ public class CargarImg extends AppCompatActivity {
         // File file = new File(Environment.getExternalStorageDirectory()+"/archivos/MyDesign3D/IMG_20200304_110721.jpg");
         //File file = new File(Environment.getExternalStorageDirectory() + "/R3D/imagenes/IMG_20200613_181957.jpg");
         //File file = new File(Environment.getExternalStorageDirectory() + "/R3D/imagenes/IMG_20200628_181505.jpg");
-        File file = new File(Environment.getExternalStorageDirectory() + "/R3D/imagenes/IMG_20200628_184049.jpg");
+        File file = new File(Environment.getExternalStorageDirectory() + "/R3D/imagenes/IMG_20200629_195436.jpg");
         if (!file.exists()) {
             Toast.makeText(getApplicationContext(), "No existe... ", Toast.LENGTH_SHORT).show();
         } else {
@@ -142,6 +143,60 @@ public class CargarImg extends AppCompatActivity {
 
         }
         file = null;
+    }
+
+    private void pruebaCilindros(){
+
+        //IMG_20200703_200630
+        //IMG_20200703_132315
+        String sOBJ="";
+
+        Mat mat = Preprocesamiento.preProceamiento("IMG_20200703_162948.jpg");
+
+        ArrayList<Point> aux = Procesamiento.convexHull(mat);
+
+
+
+        double longitud = Herramientas.getLongitud(aux);
+
+       // mat = SubRectangulos.colorearContorno((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5,
+         //       (int) Herramientas.min - 5, (int) Herramientas.max + 5,
+           //     mat);
+
+        ArrayList<Point> auxMat = SubRectangulos.pruebaColorear((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5,
+                (int) Herramientas.min - 5, (int) Herramientas.max + 5,
+                mat);
+
+        String sObj = SintaxisOBJ.generarSintaxisCilindrosOBJ(auxMat);
+
+
+        Archivos.crearArchvoOBJ("torniooo.obj", sObj);
+
+        // mat = SubRectangulos.generarPuntosY((int) Herramientas.yMin - 10, (int) Herramientas.yMax + 10,
+            //    (int) Herramientas.min - 10, (int) Herramientas.max + 10,
+              //  longitud, 10, mat);
+
+        /*aux = Herramientas.ordenarPuntos(aux);
+        double longitud = Herramientas.getLongitud(aux);
+
+        ArrayList<Point> auxMat = SubRectangulos.generarPuntosY((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5,
+                (int) Herramientas.min - 5, (int) Herramientas.max + 5,
+                longitud, 60, mat);
+
+        Toast.makeText(getApplicationContext(), ""+auxMat.size(), Toast.LENGTH_SHORT).show();
+
+        String sObj = SintaxisOBJ.generarSintaxisCilindrosOBJ(auxMat);
+
+
+        Archivos.crearArchvoOBJ("xd.obj", sObj);*/
+        //matAux = mat;
+
+        grayBitmap = Bitmap.createBitmap(mat.width(), mat.height(), Bitmap.Config.RGB_565);
+
+        Utils.matToBitmap(mat, this.grayBitmap);
+        imageView.setImageBitmap(this.grayBitmap);
+
+        //sOBJ=SintaxisOBJ.generarSintaxisCilindrosOBJ(listaPuntos);
     }
 
 

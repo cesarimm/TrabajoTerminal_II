@@ -62,12 +62,12 @@ public class ConvexHull {
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\esquinas.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\comido.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\frasco2.jpg";
-        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\embudo.jpg";
+        String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\ci1.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\gas.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\recorte2.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\escalera1.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\Achicada.jpg";
-        String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\circulo.jpg";
+        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\circulo.jpg";
         Mat src = Imgcodecs.imread(filename);
         if (src.empty()) {
             System.err.println("Cannot read image: " + filename);
@@ -186,86 +186,86 @@ public class ConvexHull {
         }
 
         
-        ///CONTORNOS
-        double yProm=0, xProm=0;
-        int totalPuntos=0,  rango=5, mod = 1, refMod=0;
-         for (int i = 0; i < contours.size(); i++) {
-            List<Point> puntos = contours.get(i).toList();  
-            //Obtener los puntos de cada parte del contorno
-            for (int j = 0; j < puntos.size(); j++) {
-               xProm+=puntos.get(j).x;
-               yProm+=puntos.get(j).y;
-               totalPuntos++;
-            }
-            
-        }
-         
-        yProm=yProm/totalPuntos;
-        xProm=xProm/totalPuntos;
-        
-        ////Crear el punto promedio entre el centro del circulo y el de todos los puntos
-        xProm=(xProm+this.central.x)/2;
-        yProm=(yProm+this.central.y)/2;
-        
-        ///Recorrer nuevamente cada contorno y ver si su centro de masa Por controno se encuentra
-        //dentro del reango aceptado para eliminar interferencias
-        
-        double yAux=0, xAux=0;
-        int divisiones=0;
-           for (int i = 0; i < contours.size(); i++) {
-            List<Point> puntos = contours.get(i).toList();  
-            //Obtener los puntos de cada parte del contorno
-            for (int j = 0; j < puntos.size(); j++) {
-               xAux+=puntos.get(j).x;
-               yAux+=puntos.get(j).y;
-               divisiones++;
-            }
-            
-            xAux=xAux/divisiones;
-            yAux=yAux/divisiones;
-            
-               
-            if(!((yAux<yProm-rango||yAux>yProm+rango)&&(xAux<xProm-rango||xAux>xProm+rango))){
-                System.out.println("General x:"+xProm+" y:"+yProm);
-               System.out.println("Contorno x:"+xAux+" y:"+yAux);
-               for (int j = 0; j < puntos.size(); j++) {
-                   if(refMod%mod==0){
-                       Imgproc.circle(drawing, puntos.get(j), 5, new Scalar(255, 0, 0), 2, 8, 0);
-                       aux.add(puntos.get(j));
-                   }
-                   refMod++;
-                } 
-            }
-            
-            
-            divisiones=0;
-            yAux=0;
-            xAux=0;
-        }
+//        ///CONTORNOS
+//        double yProm=0, xProm=0;
+//        int totalPuntos=0,  rango=5, mod = 1, refMod=0;
+//         for (int i = 0; i < contours.size(); i++) {
+//            List<Point> puntos = contours.get(i).toList();  
+//            //Obtener los puntos de cada parte del contorno
+//            for (int j = 0; j < puntos.size(); j++) {
+//               xProm+=puntos.get(j).x;
+//               yProm+=puntos.get(j).y;
+//               totalPuntos++;
+//            }
+//            
+//        }
+//         
+//        yProm=yProm/totalPuntos;
+//        xProm=xProm/totalPuntos;
+//        
+//        ////Crear el punto promedio entre el centro del circulo y el de todos los puntos
+//        xProm=(xProm+this.central.x)/2;
+//        yProm=(yProm+this.central.y)/2;
+//        
+//        ///Recorrer nuevamente cada contorno y ver si su centro de masa Por controno se encuentra
+//        //dentro del reango aceptado para eliminar interferencias
+//        
+//        double yAux=0, xAux=0;
+//        int divisiones=0;
+//           for (int i = 0; i < contours.size(); i++) {
+//            List<Point> puntos = contours.get(i).toList();  
+//            //Obtener los puntos de cada parte del contorno
+//            for (int j = 0; j < puntos.size(); j++) {
+//               xAux+=puntos.get(j).x;
+//               yAux+=puntos.get(j).y;
+//               divisiones++;
+//            }
+//            
+//            xAux=xAux/divisiones;
+//            yAux=yAux/divisiones;
+//            
+//               
+//            if(!((yAux<yProm-rango||yAux>yProm+rango)&&(xAux<xProm-rango||xAux>xProm+rango))){
+//                System.out.println("General x:"+xProm+" y:"+yProm);
+//               System.out.println("Contorno x:"+xAux+" y:"+yAux);
+//               for (int j = 0; j < puntos.size(); j++) {
+//                   if(refMod%mod==0){
+//                       Imgproc.circle(drawing, puntos.get(j), 5, new Scalar(255, 0, 0), 2, 8, 0);
+//                       aux.add(puntos.get(j));
+//                   }
+//                   refMod++;
+//                } 
+//            }
+//            
+//            
+//            divisiones=0;
+//            yAux=0;
+//            xAux=0;
+//        }
          
         
         /////////
         
-////        int contAux =0;
-////        //contours.size()
-////        int mod = 2;
-////        //Obtener todos los puntos de los diferentes contornos
-////        int k = 0;
-////        for (int i = 0; i < contours.size(); i++) {
-////            List<Point> puntos = contours.get(i).toList();
-////            contAux+=puntos.size();
-////            //Obtener los puntos de cada parte del contorno
-////            for (int j = 0; j < puntos.size(); j++) {
-////                if (k % mod == 0) {
-////                    aux.add(puntos.get(j));
-////                    //Imgproc.circle(drawing, new Point(aux.get(i).x, aux.get(i).y), 5, new Scalar(255, 0, 0), 2, 8, 0);
-////                }
-////                k++;
-////            }
-//////            if(contAux>=1000){
-//////                break;
-//////            }
-////        }
+        int contAux =0;
+        //contours.size()
+        int mod = 2;
+        //Obtener todos los puntos de los diferentes contornos
+        int k = 0;
+        for (int i = 0; i < contours.size(); i++) {
+            List<Point> puntos = contours.get(i).toList();
+            contAux+=puntos.size();
+            //Obtener los puntos de cada parte del contorno
+            for (int j = 0; j < puntos.size(); j++) {
+                if (k % mod == 0) {
+                    aux.add(puntos.get(j));
+                    //Imgproc.circle(drawing, new Point(aux.get(i).x, aux.get(i).y), 5, new Scalar(255, 0, 0), 2, 8, 0);
+                }
+                k++;
+            }
+//            if(contAux>=1000){
+//                break;
+//            }
+        }
 
         //Calcular el punto medio de la cara solo es para dibujar
         double sumX = 0, sumY = 0;
@@ -281,17 +281,20 @@ public class ConvexHull {
         ////Obtiene la lista de puntos
         aux = Herramientas.ordenarPuntos(aux);
         ///Obtener la longitud de extremos de la figura    
-        //double longitud = Herramientas.getLongitud(aux);
+        double longitud = Herramientas.getLongitud(aux);
         //Herramientas.sintaxisOBJV2(aux, 100);
-        Herramientas.sintaxisDonasOBJ(aux);
+        //Herramientas.sintaxisDonasOBJ(aux);
         //Division
         // cannyOutput = Divisiones.printMat((int)Herramientas.yMin-5, (int)Herramientas.yMax+5, (int)Herramientas.min-5, (int)Herramientas.max+5, cannyOutput);
         
 //        cannyOutput = Divisiones.generarPuntos((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5, (int) Herramientas.min - 5, (int) Herramientas.max + 5,
 //                longitud, 25, cannyOutput);
         
-        //cannyOutput = Divisiones.generarPuntosY((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5, (int) Herramientas.min - 5, (int) Herramientas.max + 5,
-          //      longitud, 60, cannyOutput);
+//        cannyOutput = Divisiones.generarPuntosY((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5, (int) Herramientas.min - 5, (int) Herramientas.max + 5,
+//                longitud, 20, cannyOutput);
+
+          cannyOutput = Divisiones.printMat((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5, (int) Herramientas.min - 5, (int) Herramientas.max + 5,
+                cannyOutput);
         
 //        Mat resizeImg = new Mat();
 //        Size sz = new Size(100,150);
@@ -308,7 +311,7 @@ public class ConvexHull {
 
         //this.rotate(cannyOutput, 90);
        ///Aqui 
-        imgContoursLabel.setIcon(new ImageIcon(HighGui.toBufferedImage(drawing)));
+        imgContoursLabel.setIcon(new ImageIcon(HighGui.toBufferedImage(cannyOutput)));
        frame.repaint();
 
         ///Este es el original
