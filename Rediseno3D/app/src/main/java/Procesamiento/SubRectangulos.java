@@ -56,7 +56,7 @@ public class SubRectangulos {
                 }
             }
 
-            if(a!=null){
+            if(a!=null&&b!=null){
                 listaPuntos.add(a);
                 listaPuntos.add(b);
             }
@@ -64,6 +64,7 @@ public class SubRectangulos {
 
         }
 
+        //ArrayList<Point> listaAux = new ArrayList<>();
         System.out.println("Size: "+listaPuntos.size());
         for (int i = 0; i < listaPuntos.size(); i++) {
             try{
@@ -79,7 +80,7 @@ public class SubRectangulos {
     }
 
 
-    ///Generar punto en el ejeY
+    ///Generar punto en el ejeY ///Este no funciona
     public static Mat generarPuntosY(int x,int xMax, int y, int yMax, double longitud, int divisiones, Mat mat){
         Mat aux = Mat.zeros(mat.size(), CvType.CV_8U);
         ArrayList<Point> listaPuntos = new ArrayList<Point>();
@@ -205,8 +206,10 @@ public class SubRectangulos {
                 listaPuntos.add(b);
             }
 
-
         }
+
+
+
 
         System.out.println("Size: " + listaPuntos.size());
         for (int i = 0; i < listaPuntos.size(); i++) {
@@ -223,19 +226,29 @@ public class SubRectangulos {
     }
 
 
-    public static Mat colorearContorno(int x,int xMax, int y, int yMax, Mat mat){
+    ///Recorrer tanto ejeX, como eje Y
+    public static ArrayList<Point> generarContornoXY(int x,int xMax, int y, int yMax, Mat mat){
         System.out.println("");
         Mat aux = Mat.zeros(mat.size(), CvType.CV_8U);
+        ArrayList<Point> puntos=new ArrayList<>();
+        Point a, b;
         //Mat aux = mat;
         for (int i = y; i <=yMax; i++) {
+            a=null;
+            b=null;
             for (int j = x; j < xMax; j++) {
                 try{
                     for (int k = 0; k < mat.get(j, i).length; k++) {
                         if(mat.get(j, i)[k]!=0){
                             //System.out.println("x:"+j+" y:"+i+" "+mat.get(j, i)[k]);
-                            Imgproc.circle(aux, new Point(i,j), 3, new Scalar(255,0,0), 2, 8, 0);
-                            j=xMax;
-                            break;
+                            if(a==null){
+                                a=new Point(i,j);
+                            }else{
+                                b=new Point(i,j);
+                            }
+                           // Imgproc.circle(aux, new Point(i,j), 3, new Scalar(255,0,0), 2, 8, 0);
+                           // j=xMax;
+                           // break;
                         }
                     }
                 }catch(Exception e){
@@ -243,15 +256,54 @@ public class SubRectangulos {
                 }
 
             }
+            if(a!=null&&b!=null){
+                puntos.add(a);
+                puntos.add(b);
+            }
         }
 
-        // Imgproc.circle(aux, new Point(142,50), 5, new Scalar(0,255,10), 2, 8, 0);
 
-        return aux;
+        for (int i = x; i <=xMax; i++) {
+            a=null;
+            b=null;
+            for (int j = y; j < yMax; j++) {
+                try{
+                    for (int k = 0; k < mat.get(i, j).length; k++) {
+                        if(mat.get(i, j)[k]!=0){
+                            //System.out.println("x:"+j+" y:"+i+" "+mat.get(j, i)[k]);
+                            //Imgproc.circle(aux, new Point(i,j), 3, new Scalar(255,0,0), 2, 8, 0);
+                            if(a==null){
+                                a = new Point(j,i);
+                            }else{
+                                b = new Point(j,i);
+                            }
+                        }
+                    }
+                }catch(Exception e){
+
+                }
+
+            }
+            if(a!=null&&b!=null){
+                puntos.add(a);
+                puntos.add(b);
+
+            }
+        }
+
+        /*for(int i=0;i<puntos.size();i++){
+            try{
+                Imgproc.circle(aux, puntos.get(i), 1, new Scalar(255,0,0), 2, 8, 0);
+            }catch(Exception e){
+
+            }
+        }*/
+
+        return puntos;
 
     }
 
-    public static ArrayList<Point> pruebaColorear(int x, int xMax, int y, int yMax, Mat mat, int divisiones){
+    public static ArrayList<Point> cilindrosEjeY(int x, int xMax, int y, int yMax, Mat mat, int divisiones){
         //System.out.println("");
         ArrayList<Point> puntos = new ArrayList<>();
         Point a=null, b=null;
@@ -306,6 +358,7 @@ public class SubRectangulos {
     }
 
 
+    ////Prueba para los cilindros
     public static Mat pruebMat(int x, int xMax, int y, int yMax, Mat mat, int divisiones){
         //System.out.println("");
         ArrayList<Point> puntos = new ArrayList<>();
@@ -371,7 +424,6 @@ public class SubRectangulos {
         // Imgproc.circle(aux, new Point(142,50), 5, new Scalar(0,255,10), 2, 8, 0);
 
         return aux;
-
     }
 
 

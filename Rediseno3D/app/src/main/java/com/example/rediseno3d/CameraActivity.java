@@ -1,6 +1,7 @@
 package com.example.rediseno3d;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Environment;
@@ -34,7 +35,7 @@ public class CameraActivity extends AppCompatActivity {
     public static final int TRES_IMAGEN = 3;
 
     ///lista con los nombre del arrayList
-    private static ArrayList<String> listaImagenes = new ArrayList<>();
+    public static ArrayList<String> listaImagenes = new ArrayList<>();
 
     private Camera mCamera;
     private CameraPreview mPreview;
@@ -151,6 +152,7 @@ public class CameraActivity extends AppCompatActivity {
 
    private void iniciarCamara(){
        mCamera = getCameraInstance();
+
        mCamera.setDisplayOrientation(90);
        mPreview = new CameraPreview(this, mCamera);
        FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);

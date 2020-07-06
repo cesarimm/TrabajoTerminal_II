@@ -2,6 +2,7 @@ package Procesamiento;
 
 import org.opencv.core.Point;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Herramientas {
@@ -99,6 +100,17 @@ public class Herramientas {
     ///Funcion para obtener el punto medio entre dos puntos
     public static Point puntoMedio(Point a, Point b){
         return new Point(Math.round((a.x+b.x)/2), Math.round((a.y+b.y)/2));
+    }
+
+    ///Limpiar por modulos
+    public static ArrayList<Point> limpiarListaModulo(int mod, ArrayList<Point> puntos){
+        ArrayList<Point> aux = new ArrayList<>();
+        for (int j = 0; j < puntos.size(); j++) {
+            if(j%mod==0) {
+                aux.add(puntos.get(j));
+            }
+        }
+        return aux;
     }
 
 

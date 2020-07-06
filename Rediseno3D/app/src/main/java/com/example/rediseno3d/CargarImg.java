@@ -153,7 +153,7 @@ public class CargarImg extends AppCompatActivity {
         ///IMG_20200704_124623
         String sOBJ="";
 
-        Mat mat = Preprocesamiento.preProceamiento("IMG_20200704_124513.jpg");
+        Mat mat = Preprocesamiento.preProceamiento("IMG_20200705_152407.jpg");
 
         ArrayList<Point> aux = Procesamiento.convexHull(mat);
 
@@ -161,11 +161,17 @@ public class CargarImg extends AppCompatActivity {
 
         double longitud = Herramientas.getLongitud(aux);
 
-        mat = SubRectangulos.pruebMat((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5,
-               (int) Herramientas.min - 5, (int) Herramientas.max + 5,
-               mat, 10);
+        ArrayList<Point> auxMat = SubRectangulos.generarContornoXY((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5,
+                (int) Herramientas.min - 5, (int) Herramientas.max + 5,
+               mat);
+
+        auxMat = Herramientas.ordenarPuntos(auxMat);
+        auxMat = Herramientas.limpiarListaModulo(5,auxMat);
+
+        sOBJ = SintaxisOBJ.sintaxisOBJDonas(auxMat, 100);
 
 
+        Archivos.crearArchvoOBJ("tuerca.obj", sOBJ);
 
        // String sObj = SintaxisOBJ.generarSintaxisCilindrosOBJ(auxMat);
 

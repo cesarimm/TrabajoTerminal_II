@@ -58,7 +58,7 @@ public class Preprocesamiento {
 
 
             //Size sz = new Size(800, 400);
-            Size sz = new Size(800, 400);
+            Size sz = new Size(700, 350);
             Imgproc.resize(nuevo, rgba, sz);
             ///De esta o de la otra manera funcionan
             //rotacion(rgba, 270);

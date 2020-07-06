@@ -13,7 +13,7 @@ public class SintaxisOBJ {
         String texto="";
         for(int i=0;i<aux.size();i++){
             //System.out.println("v "+aux.get(i).x+" "+aux.get(i).y+" 0");
-            texto+="v "+aux.get(i).x+" "+aux.get(i).y+" 0\n";
+                texto+="v "+aux.get(i).x+" "+aux.get(i).y+" 0\n";
         }
 
         if(distancia!=0)
@@ -145,7 +145,7 @@ public class SintaxisOBJ {
         }
 
         //System.out.println("v "+Math.ceil(xProm/aux.size())+" "+Math.ceil(yProm/aux.size())+" "+largo);
-        texto+="v "+Math.ceil(xProm/aux.size())+" "+Math.ceil(yProm/aux.size())+"\n";
+        texto+="v "+Math.ceil(xProm/aux.size())+" "+Math.ceil(yProm/aux.size())+" "+largo+"\n";
 
         //System.out.println("usemtl Default");
         texto+="usemtl Default"+"\n";
