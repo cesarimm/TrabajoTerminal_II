@@ -2,10 +2,9 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="250dp"
     android:background="@color/color2"
     android:orientation="vertical">
-
 
     <ImageView
         android:id="@+id/imageViewInflado"
@@ -15,7 +14,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="-64dp"
         android:layout_marginLeft="0dp"
-         />
+        />
 
     <TextView
         android:id="@+id/lvTitulo"
@@ -35,5 +34,13 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:text="AQUÍ VA EL CONTENIDO DEL MENSAJE" />
+
+    <Button
+        android:id="@+id/btnListo"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/check"
+        android:textSize="8dp" />
+
 
 </RelativeLayout>

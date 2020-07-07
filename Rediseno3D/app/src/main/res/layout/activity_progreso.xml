@@ -4,13 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ProgresoActivity">
 
 
-    <TextView
-        android:id="@+id/textViewArchivos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="35dp"
+    android:paddingTop="180dp"
+    android:paddingRight="35dp">
 
-        android:text="TextView" />
+        <ProgressBar
+            android:id="@+id/barraProgreso"
+            android:progress="10"
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+   </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="35dp"
+        android:paddingTop="40dp"
+        android:paddingRight="35dp"
+        >
+
+        <TextView
+            android:id="@+id/textViewProceso"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:paddingTop="10dp"
+            android:text="aqui Va el texto"
+            android:textSize="16dp"
+            android:textAlignment="center"
+            android:gravity="center_horizontal" />
+    </LinearLayout>
+
+
+
+
+
+
 </LinearLayout>
