@@ -37,4 +37,12 @@ public class Visualizador extends AppCompatActivity {
 
         getSupportActionBar().hide();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        Intent intent = new Intent(getApplicationContext(), ObjListActivity.class);
+        startActivity(intent);
+    }
 }
