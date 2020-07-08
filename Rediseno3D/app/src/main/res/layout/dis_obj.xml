@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:background="@color/color2"
+    android:background="@color/gris1"
     android:orientation="vertical">
 
     <ImageView
@@ -25,6 +25,7 @@
         android:layout_marginRight="98dp"
         android:text="Hola!!!"
         android:textSize="18dp"
+        android:textColor="@color/guinda"
         android:textStyle="bold" />
 
     <TextView
@@ -34,6 +35,7 @@
         android:layout_marginTop="30dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:textColor="@color/black"
         android:text="AQUÍ VA EL CONTENIDO DEL MENSAJE" />
 
     <Button

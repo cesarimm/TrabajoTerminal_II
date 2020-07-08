@@ -30,16 +30,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void abrirVentanaCamara(View view){
+        finish();
         Intent intent = new Intent(this, VistasMenuActivity .class);
         startActivity(intent);
     }
 
     public void abrirVentanaListView(View view){
+        finish();
         Intent intent = new Intent(this, ObjListActivity.class);
         startActivity(intent);
     }
 
     public void abrirVentanaComoUtilizar(View view){
+        finish();
         Intent intent = new Intent(this, CargarImg.class);
         startActivity(intent);
     }
@@ -65,4 +68,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

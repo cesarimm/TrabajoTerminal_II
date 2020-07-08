@@ -85,14 +85,16 @@ public class OBJAdapter extends ArrayAdapter {
         tvFecha.setText(item.getFecha());
         final String nombre = item.getNombre();
         //Trabajar con la imagen de cada uno
-        File file = new File(Environment.getExternalStorageDirectory() + "/R3D/imagenes/IMG_20200603_175302.jpg");
+        /*File file = new File(Environment.getExternalStorageDirectory() + "/R3D/imagenes/IMG_20200603_175302.jpg");
 
         try{
           Bitmap imagenBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
           tvImageView.setImageBitmap(imagenBitmap);
         }catch (Exception e){
-            e.printStackTrace();
-        }
+
+        }*/
+
+        tvImageView.setImageResource(R.drawable.cubito);
 
         ////Para los botones
         Button compartir = (Button) listItemView.findViewById(R.id.btnCompartir);
@@ -103,15 +105,14 @@ public class OBJAdapter extends ArrayAdapter {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "eliminar"+aux, Toast.LENGTH_SHORT).show();
-                items.remove(aux);
-                notifyDataSetChanged();
+                eliminarArchivo(getContext(), nombre, aux);
             }
         });
 
         visualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "visualizar"+aux, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getContext(), "visualizar"+aux, Toast.LENGTH_SHORT).show();
                 abrirVisualizador(getContext(), nombre);
             }
         });
@@ -119,8 +120,6 @@ public class OBJAdapter extends ArrayAdapter {
         compartir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Uri path = FileProvider.getUriForFile(getContext(), "com.restart.sharingdata", new File(Environment.getExternalStorageDirectory()+"/R3D/obj/"+nombre));
-                //Uri path = Uri.fromFile(new File(Environment.getExternalStorageDirectory()+"/R3D/obj/"+nombre));
                 Uri path = FileProvider.getUriForFile(getContext(), "com.example.rediseno3d", new File(Environment.getExternalStorageDirectory()+"/R3D/obj/"+nombre));
                 Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
@@ -167,6 +166,32 @@ public class OBJAdapter extends ArrayAdapter {
             }
 
         return archivos;
+    }
+
+    private void eliminarArchivo(Context contexto, final String nombreArchvo, final int aux){
+        AlertDialog.Builder build = new AlertDialog.Builder(contexto);
+        build.setMessage("¿Desea eliminar el archivo?");
+        build.setTitle("Eliminar OBJ");
+        build.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                items.remove(aux);
+                notifyDataSetChanged();
+                File f = new File(Environment.getExternalStorageDirectory() + "/R3D/obj/"+nombreArchvo);
+                f.delete();
+            }
+        });
+
+        build.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        AlertDialog dialog = build.create();
+        dialog.show();
+
     }
 
     private void abrirVisualizador(Context contexto, String nombreArchvo){
