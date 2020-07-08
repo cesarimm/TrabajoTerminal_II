@@ -1,5 +1,6 @@
 package com.example.rediseno3d;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.hardware.Camera;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import static android.content.ContentValues.TAG;
 
@@ -139,7 +141,9 @@ public class CameraActivity extends AppCompatActivity {
                       new View.OnClickListener() {
                           @Override
                           public void onClick(View view) {
-                              Toast.makeText(getApplicationContext(), "Hola: "+contador, Toast.LENGTH_SHORT).show();
+                              ///Si hay un error es en la linea de finish
+                              finish();
+                              //Toast.makeText(getApplicationContext(), "Hola: "+contador, Toast.LENGTH_SHORT).show();
                               Intent intent = new Intent(getApplicationContext(), ProgresoActivity.class);
                               intent.putExtra("Lista", CameraActivity.listaImagenes);
                               intent.putExtra("Tipo", tipo);
@@ -228,6 +232,15 @@ public class CameraActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        eliminarImagenes();
+        finish();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+    }
+
     @Override protected void onStart() {
         super.onStart();
 
@@ -253,6 +266,17 @@ public class CameraActivity extends AppCompatActivity {
     @Override protected void onDestroy() {
         super.onDestroy();
          liberarCamara();
+    }
+
+    public static void eliminarImagenes(){
+        for(int i=0;i<listaImagenes.size();i++){
+            try{
+                File f = new File(Environment.getExternalStorageDirectory() + "/R3D/imagenes/"+listaImagenes.get(i));
+                f.delete();
+            }catch(Exception e){
+
+            }
+        }
     }
     
 }

@@ -23,9 +23,9 @@ public class MainActivity extends AppCompatActivity {
 
         this.crearCarpeta();
         if(OpenCVLoader.initDebug()){
-            Toast.makeText(getApplicationContext(), "Funcionamiento  correcto", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getApplicationContext(), "Funcionamiento  correcto", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(getApplicationContext(), "No funciona ", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getApplicationContext(), "No funciona ", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -53,9 +53,9 @@ public class MainActivity extends AppCompatActivity {
         File file = new File(Environment.getExternalStorageDirectory()+"/R3D/");
         if(!file.exists()){
             file.mkdirs();
-            Toast.makeText(getApplicationContext(), "Creado: ", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "Creado: ", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(getApplicationContext(), "Ya fue creado: "+file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "Ya fue creado: "+file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
         }
 
 

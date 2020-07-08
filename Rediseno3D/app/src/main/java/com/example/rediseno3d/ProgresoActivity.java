@@ -9,7 +9,14 @@ import Procesamiento.*;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,16 +33,23 @@ public class ProgresoActivity extends AppCompatActivity {
     int tipo;
     String errores = "";
     boolean flagError=false;
+    Button botonContinuar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_progreso);
 
+        tv =(TextView) findViewById(R.id.textViewProceso);
+        tv.setText("Progreso\n");
+
+        botonContinuar = (Button) findViewById(R.id.btnContinuarProgreso);
+
         getSupportActionBar().hide();
         ///
         Intent in = getIntent();
         Bundle b = in.getExtras();
+
 
         if(b!=null){
             lista = (ArrayList<String>) b.get("Lista");
@@ -53,7 +67,18 @@ public class ProgresoActivity extends AppCompatActivity {
             ////Mostrar errores
         if(flagError){
             mostrarDialogErrores();
+        }else{
+            tv.setText(tv.getText()+"Proceso terminado con exito\n");
         }
+
+        botonContinuar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                Intent intent = new Intent(getApplicationContext(), ObjListActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -80,6 +105,7 @@ public class ProgresoActivity extends AppCompatActivity {
      ////Objetos solidos
     private void procesoTipo1(int divisiones){
         try{
+            tv.setText(tv.getText()+"Procesando Imagenes\n");
 
             String sOBJ="";
             ArrayList<Mat> listaMat = new ArrayList<>();
@@ -111,7 +137,8 @@ public class ProgresoActivity extends AppCompatActivity {
                     (int) Herramientas.min - 5, (int) Herramientas.max + 5,
                     longitud, divisiones, listaMat.get(0));
 
-            Toast.makeText(getApplicationContext(), ""+listaSub.size(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), ""+listaSub.size(), Toast.LENGTH_SHORT).show();
+            tv.setText(tv.getText()+"Creando nube de Puntos\n");
             if(listaMat.size()==1){
                 ///Crear la sintaxis
                 sOBJ = SintaxisOBJ.sintaxisOBJSolidos(listaSub, 0);
@@ -126,6 +153,7 @@ public class ProgresoActivity extends AppCompatActivity {
                 sOBJ = SintaxisOBJ.sintaxisOBJSolidos(listaSub, (distancia+distancia2)/2);
             }
 
+            tv.setText(tv.getText()+"Creando archivo OBJ\n");
             String nombreArchivo="";
 
             if(divisiones==28){
@@ -140,16 +168,19 @@ public class ProgresoActivity extends AppCompatActivity {
             flagError = true;
             if(divisiones==28){
                 errores+="Creación de OBJ calidad baja\n";
+                tv.setText(tv.getText()+"Fallo en calidad baja\n");
             }else if(divisiones==60){
                 errores+="Creación de OBJ calidad alta\n";
+                tv.setText(tv.getText()+"Fallo en calidad alta\n");
             }
         }
     }
 
     ///Cilindros
     private void procesoTipo2(int divisiones){
-
         try{
+            tv.setText(tv.getText()+"Procesando Imagenes\n");
+
             Mat mat = Preprocesamiento.preProceamiento(lista.get(0));
 
             ArrayList<Point> aux = Procesamiento.convexHull(mat);
@@ -162,16 +193,17 @@ public class ProgresoActivity extends AppCompatActivity {
                     mat, divisiones);
 
             //Toast.makeText(getApplicationContext(), ""+auxMat.size(), Toast.LENGTH_SHORT).show();
-
+            tv.setText(tv.getText()+"Creando nube de Puntos\n");
             String sObj = SintaxisOBJ.generarSintaxisCilindrosOBJ(auxMat);
 
-
+            tv.setText(tv.getText()+"Creando archivo OBJ\n");
             String nombreArchivo="";
 
             if(divisiones==4){
                 nombreArchivo = generarNombreArchivo("baja");
             }else if(divisiones==30){
                 nombreArchivo = generarNombreArchivo("alta");
+                tv.setText(tv.getText()+"Fallo en calidad baja\n");
             }
 
             Archivos.crearArchvoOBJ(nombreArchivo, sObj);
@@ -180,8 +212,10 @@ public class ProgresoActivity extends AppCompatActivity {
             flagError = true;
             if(divisiones==4){
                 errores+="Creación de OBJ calidad baja\n";
+                tv.setText(tv.getText()+"Fallo en calidad baja\n");
             }else if(divisiones==30){
                 errores+="Creación de OBJ calidad alta\n";
+                tv.setText(tv.getText()+"Fallo en calidad alta\n");
             }
         }
     }
@@ -191,6 +225,8 @@ public class ProgresoActivity extends AppCompatActivity {
     ///Engranes, tuercas, etc
     private void procesoTipo3(int mod){
         try{
+            tv.setText(tv.getText()+"Procesando Imagenes\n");
+
             String sOBJ="";
             ArrayList<Mat> listaMat = new ArrayList<>();
             ArrayList<ArrayList<Point>> listaPuntos = new ArrayList<>();
@@ -212,6 +248,7 @@ public class ProgresoActivity extends AppCompatActivity {
                 listaPuntos.set(i, Herramientas.ordenarPuntos(listaPuntos.get(i)));
             }
 
+            tv.setText(tv.getText()+"Creando nube de Puntos\n");
             ////Obtener los datos mas importantes
             Herramientas.getLongitud(listaPuntos.get(0));
             ArrayList<Point> puntos= SubRectangulos.generarContornoXY((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5,
@@ -224,11 +261,13 @@ public class ProgresoActivity extends AppCompatActivity {
 
             sOBJ = SintaxisOBJ.sintaxisOBJDonas(puntos, Herramientas.getOnlyLongitud(listaPuntos.get(1)));
 
+            tv.setText(tv.getText()+"Creando archivo OBJ\n");
             String nombreArchivo="";
             if(mod==5){
                 nombreArchivo = generarNombreArchivo("alta");
             }else if(mod==15){
                 nombreArchivo = generarNombreArchivo("baja");
+                tv.setText(tv.getText()+"Fallo en calidad baja\n");
             }
 
             Archivos.crearArchvoOBJ(nombreArchivo, sOBJ);
@@ -236,8 +275,10 @@ public class ProgresoActivity extends AppCompatActivity {
             flagError = true;
             if(mod==5){
                 errores+="Creación de OBJ calidad alta\n";
+                tv.setText(tv.getText()+"Fallo en calidad alta\n");
             }else if(mod==15){
                 errores+="Creación de OBJ calidad baja\n";
+                tv.setText(tv.getText()+"Fallo en calidad baja\n");
             }
         }
 
@@ -246,8 +287,8 @@ public class ProgresoActivity extends AppCompatActivity {
 
     ////Solidos complejos
     private void procesoTipo4(int divisiones){
-
         try{
+            tv.setText(tv.getText()+"Procesando Imagenes\n");
             ///Para el lado XY
             Mat mat = Preprocesamiento.preProceamiento(lista.get(0));
 
@@ -273,11 +314,12 @@ public class ProgresoActivity extends AppCompatActivity {
 
             mat2 = Preprocesamiento.preProceamiento(lista.get(2));
             aux2 = Procesamiento.convexHull(mat2);
-
+            tv.setText(tv.getText()+"Creando nube de Puntos\n");
             ///Validar la distancia
             ///TODO CORRECTO
             String sObj = SintaxisOBJ.objXYZ(listaXY, listaYZ);
 
+            tv.setText(tv.getText()+"Creando archivo OBJ\n");
             String nombreArchivo="";
 
             if(divisiones==14){
@@ -292,8 +334,10 @@ public class ProgresoActivity extends AppCompatActivity {
             flagError = true;
             if(divisiones==14){
                 errores+="Creación de OBJ calidad baja\n";
+                tv.setText(tv.getText()+"Fallo en calidad baja\n");
             }else if(divisiones==60){
                 errores+="Creación de OBJ calidad alta\n";
+                tv.setText(tv.getText()+"Fallo en calidad alta\n");
             }
         }
     }
@@ -308,11 +352,6 @@ public class ProgresoActivity extends AppCompatActivity {
 
      private void limpiarLista(){
         ///Eliminar los archivos de la carpeta
-
-         ///Eliminar de los arrayList
-         ///lista.clear();
-         tv =(TextView) findViewById(R.id.textViewProceso);
-         tv.setText("hola");
          CameraActivity.listaImagenes.clear();
          lista.clear();
      }

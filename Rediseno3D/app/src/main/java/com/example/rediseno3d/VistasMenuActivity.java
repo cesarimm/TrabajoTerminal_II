@@ -29,7 +29,7 @@ public class VistasMenuActivity extends AppCompatActivity {
             public void onClick(View view) {
                int checkId = rgOpciones.getCheckedRadioButtonId();
                     if(checkId==-1){
-                        Toast.makeText(getApplicationContext(), "Selecciona una opcion", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Selecciona una opción", Toast.LENGTH_SHORT).show();
                     }else{
                         buscarRadioButton(checkId);
                     }
@@ -38,6 +38,7 @@ public class VistasMenuActivity extends AppCompatActivity {
     }
 
     private void buscarRadioButton(int checkId) {
+        finish();
         Intent intent;
         switch (checkId){
             case R.id.radioButton:

@@ -104,7 +104,7 @@ public class OBJAdapter extends ArrayAdapter {
         eliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "eliminar"+aux, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getContext(), "eliminar"+aux, Toast.LENGTH_SHORT).show();
                 eliminarArchivo(getContext(), nombre, aux);
             }
         });
@@ -138,14 +138,13 @@ public class OBJAdapter extends ArrayAdapter {
     private List<OBJ> obtenerLista(){
 
         List<OBJ> archivos = new ArrayList<OBJ>();
-
          ///Obtener los archivos del adapter y poder utilizarlos en el visualizador
             File f = new File(Environment.getExternalStorageDirectory() + "/R3D/obj/");
             File[] files = f.listFiles();
 
 
             BasicFileAttributes atributos;
-            for (int i = 0; i <files.length ; i++) {
+            for (int i = files.length -1; i >=0 ; i--) {
                 String nombre, fecha="xx/xx/xx";
                 //Obteniendo el nombre
                 nombre = files[i].getName();
@@ -191,7 +190,6 @@ public class OBJAdapter extends ArrayAdapter {
 
         AlertDialog dialog = build.create();
         dialog.show();
-
     }
 
     private void abrirVisualizador(Context contexto, String nombreArchvo){
@@ -205,7 +203,6 @@ public class OBJAdapter extends ArrayAdapter {
             for(int x=0;x<(vertices.length/3)*4;x++){
                 colors[x] = 0.5f;
             }
-
             // Toast.makeText(getApplicationContext(), "Item: "+textView.getText().toString(), Toast.LENGTH_LONG).show();
             Intent intent = new Intent(contexto, Visualizador.class);
             intent.putExtra("Vertices", vertices);
@@ -228,9 +225,5 @@ public class OBJAdapter extends ArrayAdapter {
             dialog.show();
         }
     }
-
-
-    ///Compartir
-
 
 }
