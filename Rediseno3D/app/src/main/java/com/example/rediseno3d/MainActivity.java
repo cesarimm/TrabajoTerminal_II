@@ -1,8 +1,12 @@
 package com.example.rediseno3d;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -14,6 +18,8 @@ import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
+    final int REQUEST_ACCESS_FINE = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,11 +27,39 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
+
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_ACCESS_FINE);
+        }
+
+
+
+        /// Crear las carpetas de la aplicacion
         this.crearCarpeta();
         if(OpenCVLoader.initDebug()){
            // Toast.makeText(getApplicationContext(), "Funcionamiento  correcto", Toast.LENGTH_SHORT).show();
         }else{
            // Toast.makeText(getApplicationContext(), "No funciona ", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if(requestCode==REQUEST_ACCESS_FINE){
+            if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                //Toast.makeText(this, "Permiso otorgado", Toast.LENGTH_SHORT).show();
+                this.crearCarpeta();
+
+                ///Permisos de la aplicación
+                if(ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_ACCESS_FINE);
+                }
+
+            }else{
+                Toast.makeText(this, "Permiso denegado", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

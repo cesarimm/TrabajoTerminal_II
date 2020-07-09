@@ -2,13 +2,17 @@ package com.example.rediseno3d;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +21,7 @@ public class ObjListActivity extends AppCompatActivity {
 
     ListView listaObj;
     ArrayAdapter<OBJ> adapter;
+    final int REQUEST_ACCESS_FINE = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -31,13 +36,14 @@ public class ObjListActivity extends AppCompatActivity {
         adapter = new OBJAdapter(this);
         listaObj.setAdapter(adapter);
 
+
         listaObj.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 TextView textView = (TextView) view.findViewById(R.id.lvTitulo);
 
                 ///Obtener los datos para la libreria de OPENGL a partir del OBJ
-                float vertices[]  = Figura.getVertices(textView.getText().toString());
+                /*float vertices[]  = Figura.getVertices(textView.getText().toString());
                 byte indices[]  = Figura.getIndices(textView.getText().toString());
 
                 float colors[]= new float[(vertices.length/3)*4];
@@ -51,7 +57,7 @@ public class ObjListActivity extends AppCompatActivity {
                 intent.putExtra("Vertices", vertices);
                 intent.putExtra("Indices", indices);
                 intent.putExtra("Colores", colors);
-                startActivity(intent);
+                startActivity(intent);*/
             }
         });
 

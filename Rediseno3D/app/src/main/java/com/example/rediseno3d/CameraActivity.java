@@ -1,7 +1,9 @@
 package com.example.rediseno3d;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.net.Uri;
@@ -22,8 +24,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
 import static android.content.ContentValues.TAG;
 
 
@@ -31,6 +36,7 @@ public class CameraActivity extends AppCompatActivity {
 
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
+    final int REQUEST_ACCESS_FINE = 0;
 
     public static final int UNA_IMAGEN = 1;
     public static final int DOS_IMAGEN = 2;
@@ -76,7 +82,9 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
         getSupportActionBar().hide();
-       ///
+
+
+        ///
         Intent in = getIntent();
         Bundle b = in.getExtras();
 
@@ -172,6 +180,18 @@ public class CameraActivity extends AppCompatActivity {
 
    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if(requestCode==REQUEST_ACCESS_FINE){
+            if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Toast.makeText(this, "Permiso otorgado", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(this, "Permiso denegado", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
 
     public void capturarImagen(){
