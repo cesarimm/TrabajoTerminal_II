@@ -153,25 +153,29 @@ public class CargarImg extends AppCompatActivity {
         ///IMG_20200704_124623
         String sOBJ="";
 
-        Mat mat = Preprocesamiento.preProceamiento("IMG_20200705_152407.jpg");
+        Mat mat = Preprocesamiento.preProceamiento("IMG_20200709_192231.jpg");
 
         ArrayList<Point> aux = Procesamiento.convexHull(mat);
 
 
-
         double longitud = Herramientas.getLongitud(aux);
+            mat = SubRectangulos.pruebaX((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5,
+                    (int) Herramientas.min - 5, (int) Herramientas.max + 5,
+                    longitud, 30, mat);
 
-        ArrayList<Point> auxMat = SubRectangulos.generarContornoXY((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5,
+
+
+       /* ArrayList<Point> auxMat = SubRectangulos.cilindrosEjeY((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5,
                 (int) Herramientas.min - 5, (int) Herramientas.max + 5,
-               mat);
+               mat, 30);
 
-        auxMat = Herramientas.ordenarPuntos(auxMat);
-        auxMat = Herramientas.limpiarListaModulo(5,auxMat);
+        //auxMat = Herramientas.ordenarPuntos(auxMat);
+        //auxMat = Herramientas.limpiarListaModulo(5,auxMat);
 
-        sOBJ = SintaxisOBJ.sintaxisOBJDonas(auxMat, 100);
+        sOBJ = SintaxisOBJ.generarSintaxisCilindrosOBJ(auxMat);
 
 
-        Archivos.crearArchvoOBJ("tuerca.obj", sOBJ);
+        Archivos.crearArchvoOBJ("Boliche.obj", sOBJ);
 
        // String sObj = SintaxisOBJ.generarSintaxisCilindrosOBJ(auxMat);
 
@@ -196,7 +200,7 @@ public class CargarImg extends AppCompatActivity {
 
         Archivos.crearArchvoOBJ("xd.obj", sObj);*/
         //matAux = mat;
-
+        ///Hay tres maneras de hacer las cosas, bien, mal y como las hago "YO"
         grayBitmap = Bitmap.createBitmap(mat.width(), mat.height(), Bitmap.Config.RGB_565);
 
         Utils.matToBitmap(mat, this.grayBitmap);

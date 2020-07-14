@@ -53,6 +53,10 @@ public class Preprocesamiento {
             //BITMAP TO MAP
             Utils.bitmapToMat(imagenBitmap, nuevo);
 
+            ///Lineas de brillo y contraste
+            nuevo.convertTo(nuevo, -1, 1, -20);
+            //nuevo.convertTo(nuevo, -1, 0.5, 0);
+
 
             ///Setear el tamaño de la imagen
 

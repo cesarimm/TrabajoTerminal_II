@@ -41,7 +41,7 @@ public class Renderizador implements GLSurfaceView.Renderer {
          };*/
 
         figura = new Figura(vertices, colors, indices);
-        //figura = new Figura(nameFile);
+
     }
 
     @Override
@@ -81,6 +81,6 @@ public class Renderizador implements GLSurfaceView.Renderer {
         gl.glRotatef(rotation, 1.0f, 1.0f, 1.0f);
         figura.draw(gl);
         gl.glLoadIdentity();
-        rotation -= 0.15f;
+        rotation -= .15f;
     }
 }
