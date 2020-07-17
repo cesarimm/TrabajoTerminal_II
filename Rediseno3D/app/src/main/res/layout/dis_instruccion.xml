@@ -9,14 +9,15 @@
     <TextView
         android:id="@+id/IstTitulo"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="34dp"
         android:text="Hola"
         android:textSize="24dp"
         android:textAlignment="center"
         android:gravity="center_horizontal"
         android:textColor="@color/black"
+        android:textStyle="bold"
         >
-</TextView>
+    </TextView>
 
     <TextView
         android:id="@+id/IstContenido"
@@ -27,6 +28,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:textSize="20dp"
+        android:justificationMode="inter_word"
         android:textColor="@color/black"
         >
     </TextView>
@@ -42,7 +44,4 @@
         android:layout_marginBottom="3dp"
         >
     </ImageView>
-
-
-
 </RelativeLayout>

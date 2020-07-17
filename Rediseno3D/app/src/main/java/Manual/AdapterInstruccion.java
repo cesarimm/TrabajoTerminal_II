@@ -64,7 +64,7 @@ public class AdapterInstruccion extends ArrayAdapter {
                 R.drawable.menuprincipal);
         listaInstrucciones.add(i1);
         ////AGREGAR LA INSTRUCCION NUMERO 2
-        i1 =new Instruccion("REDISEÑO DE OBJETO",
+        i1 =new Instruccion("1. REDISEÑO DE OBJETO",
                  "Después de dar clic en el botón de “REDISEÑO DE OBJETO 3D” se abrirá la siguiente ventana, en la cual debemos de seleccionar una opción dependiendo del tipo de objeto debemos " +
                          "seleccionar la opción indicada.",
                 R.drawable.seleccionobjeto);
@@ -91,8 +91,8 @@ public class AdapterInstruccion extends ArrayAdapter {
         listaInstrucciones.add(i1);
         ////AGREGAR LA INSTRUCCION NUMERO 3
         i1 =new Instruccion("Captura de imagenes",
-                "Mantener la misma dstancia al capturar las diversas imagenes\n" +
-                          "Fondo debe de realizar un constraste con el objeto, el fondo puede ser blanco o negro.",
+                ">Mantener la misma dstancia al capturar las diversas vistas del objeto.\n" +
+                          ">Fondo debe de realizar un constraste con el objeto,  puede ser blanco o negro.",
                 R.drawable.camarita);
         listaInstrucciones.add(i1);
          ///Numero de imagenes por el tipo de objeto
@@ -104,8 +104,8 @@ public class AdapterInstruccion extends ArrayAdapter {
 
         //Botones capturar imagen
         i1 =new Instruccion("Botones de capturar Imagen",
-                "Botón Rojo. Se utiliza para capturar la imagen, como resultado muestra un mensaje de 'Capturado', lo cual quiere decir que la imagen ha sido tomada exitosamente.\n"+
-                "Botón Verde. Para dar inicio al proceso de creación de archivos OBJ. Se habilita cuando se han tomado las fotografías necesarias.",
+                ">Botón Rojo. Se utiliza para capturar la imagen, como resultado muestra un mensaje de 'Capturado', lo cual quiere decir que la imagen ha sido tomada exitosamente.\n"+
+                ">Botón Verde. Para dar inicio al proceso de creación de archivos OBJ. Se habilita cuando se han tomado las fotografías necesarias.",
                 R.drawable.botononescaptura);
         listaInstrucciones.add(i1);
 
@@ -117,13 +117,13 @@ public class AdapterInstruccion extends ArrayAdapter {
         ///Error de procesamiento
         i1 =new Instruccion("Error de procesamiento",
                 "Al mostrarse la siguiente alerta quiere decir que algo ha fallado en el proceso y no se han seguido las indicaciones correctas. " +
-                         "Posibles errores: Demasiado brillo en las imagenes, fondo incorrecto, no se mantuvo la distancia e imagenes mal capturadas",
+                         "\n>Posibles errores: \n>Demasiado brillo en las imagenes capturadas \n>Fondo incorrecto \n>No se mantuvo la distancia  \n>Imagenes mal capturadas",
                 R.drawable.errorprogreso);
         listaInstrucciones.add(i1);
 
         ////AGREGAR LA INSTRUCCION NUMERO 4
         i1 =new Instruccion("LISTA OBJ",
-                "Se encuentran por orden de creación los archivos el primero es el más reciente y así sucesivamente.  En cada archivo tenemos la opción de realizar tres acciones que a continuación se describen.Se realizan dos archivos por cada objeto que se rediseñó exitosamente, un archivo de calidad baja y otro archivo de calidad alta, así el usuario tiene más opciones de cuál es el que desea utilizar según sea lo que requiera.",
+                "Se encuentran por orden de creación los archivos el primero es el más reciente y así sucesivamente.  En cada archivo tenemos la opción de realizar tres acciones que a continuación se describen.\nSe realizan dos archivos por cada objeto que se rediseñó exitosamente, un archivo de calidad baja y otro archivo de calidad alta, así el usuario tiene más opciones de cuál es el que desea utilizar según sea lo que requiera.",
                 R.drawable.objitem);
         listaInstrucciones.add(i1);
 
