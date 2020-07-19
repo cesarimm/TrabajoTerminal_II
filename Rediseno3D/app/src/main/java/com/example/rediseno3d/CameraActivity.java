@@ -90,7 +90,7 @@ public class CameraActivity extends AppCompatActivity {
 
         if(b!=null){
             tipo = (int) b.get("TIPO");
-            Toast.makeText(getApplicationContext(), "Vis "+tipo, Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "Vis "+tipo, Toast.LENGTH_LONG).show();
         }
 
 

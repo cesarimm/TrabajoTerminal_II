@@ -259,7 +259,7 @@ public class ProgresoActivity extends AppCompatActivity {
             puntos = Herramientas.ordenarPuntos(puntos);
             puntos = Herramientas.limpiarListaModulo(mod, puntos);
 
-            sOBJ = SintaxisOBJ.sintaxisOBJDonas(puntos, Herramientas.getOnlyLongitud(listaPuntos.get(1)));
+            sOBJ = SintaxisOBJ.sintaxisOBJDonas(puntos, Herramientas.getOnlyLongitud(listaPuntos.get(1))/6);
 
             tv.setText(tv.getText()+"Creando archivo OBJ\n");
             String nombreArchivo="";
