@@ -132,7 +132,7 @@ public class AdapterInstruccion extends ArrayAdapter {
                  "Muestra el resultado del objeto rediseñado y lo gira alrededor de un eje. \n"
                          + "En algunos casos el archivo OBJ no se puede visualizar, esto es debido a que el visualizador" +
                          "no soporta la nube de puntos que en ocasiones es muy extensa.  \n",
-                R.drawable.objitem);
+                R.drawable.visualizador);
         listaInstrucciones.add(i1);
 
         ///Compartir
