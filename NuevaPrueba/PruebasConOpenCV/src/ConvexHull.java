@@ -58,11 +58,11 @@ public class ConvexHull {
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\estrella.png";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\ele.jpg";
         // String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\trapecio.jpg";
-        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\flecha.jpg";
+        String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\flecha.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\esquinas.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\comido.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\frasco2.jpg";
-        String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\ci1.jpg";
+        //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\ci1.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\gas.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\recorte2.jpg";
         //String filename = "D:\\Documents\\Trabajo_Terminal_Dos\\Imagenes\\escalera1.jpg";
@@ -75,45 +75,40 @@ public class ConvexHull {
         }
         Imgproc.cvtColor(src, srcGray, Imgproc.COLOR_BGR2GRAY);
         //Imgproc.blur(srcGray, srcGray, new Size(3, 3));
-                Imgproc.medianBlur(srcGray, srcGray, 5);
-        
-        
-        
+        Imgproc.medianBlur(srcGray, srcGray, 5);
+
         ///
-        
-        
-         //Para buscar y dibujar circulos 
-        Mat circleOut = new Mat();
-        Imgproc.HoughCircles(srcGray, circleOut, Imgproc.HOUGH_GRADIENT, (double)srcGray.rows()/16, 100.0, 30.0, 1, 30);
-        
-        for(int x=0;x<1;x++){
-            try{
-                double[] c = circleOut.get(0, x);
-            
-            //Centro del circulo
-               Point centro = new Point(Math.round(c[0]), Math.round(c[1]));
-               Imgproc.circle(src, centro, 1, new Scalar(0,100,100),3,8,0);
-               
-                System.out.println("Centro x:"+Math.round(c[0])+" y:"+Math.round(c[1]));
-              ///
-              
-              central=centro;
-              int radio = (int) Math.round(c[2]);
-              Imgproc.circle(src, centro, radio, new Scalar(255,0,255),3,8,0);
-            }catch(Exception e){
-                
-            }
-                      
-        }
-        
-        
+        //Para buscar y dibujar circulos 
+//        Mat circleOut = new Mat();
+//        Imgproc.HoughCircles(srcGray, circleOut, Imgproc.HOUGH_GRADIENT, (double) srcGray.rows() / 16, 100.0, 30.0, 1, 30);
+//
+//        for (int x = 0; x < 1; x++) {
+//            try {
+//                double[] c = circleOut.get(0, x);
+//
+//                //Centro del circulo
+//                Point centro = new Point(Math.round(c[0]), Math.round(c[1]));
+//                Imgproc.circle(src, centro, 1, new Scalar(0, 100, 100), 3, 8, 0);
+//
+//                System.out.println("Centro x:" + Math.round(c[0]) + " y:" + Math.round(c[1]));
+//                ///
+//
+//                central = centro;
+//                int radio = (int) Math.round(c[2]);
+//                Imgproc.circle(src, centro, radio, new Scalar(255, 0, 255), 3, 8, 0);
+//            } catch (Exception e) {
+//
+//            }
+//
+//        }
+
         //Linea extra
         //Imgproc.Canny(srcGray, srcGray, 50, 150);
         // Create and set up the window.
         frame = new JFrame("Convex Hull demo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // Set up the content pane.
-        Image img = HighGui.toBufferedImage(src);
+        Image img = HighGui.toBufferedImage(srcGray);
         addComponentsToPane(frame.getContentPane(), img);
         // Use the content pane's default BorderLayout. No need for
         // setLayout(new BorderLayout());
@@ -158,7 +153,7 @@ public class ConvexHull {
     private void update() {
         Mat cannyOutput = new Mat();
         Imgproc.Canny(srcGray, cannyOutput, threshold, threshold * 2);
-        System.out.println("Threshold: "+threshold);
+        System.out.println("Threshold: " + threshold);
         List<MatOfPoint> contours = new ArrayList<>();
         Mat hierarchy = new Mat();
         Imgproc.findContours(cannyOutput, contours, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
@@ -185,7 +180,6 @@ public class ConvexHull {
             //Imgproc.drawContours(drawing, hullList, i, color );
         }
 
-        
 //        ///CONTORNOS
 //        double yProm=0, xProm=0;
 //        int totalPuntos=0,  rango=5, mod = 1, refMod=0;
@@ -242,18 +236,15 @@ public class ConvexHull {
 //            yAux=0;
 //            xAux=0;
 //        }
-         
-        
         /////////
-        
-        int contAux =0;
+        int contAux = 0;
         //contours.size()
         int mod = 2;
         //Obtener todos los puntos de los diferentes contornos
         int k = 0;
         for (int i = 0; i < contours.size(); i++) {
             List<Point> puntos = contours.get(i).toList();
-            contAux+=puntos.size();
+            contAux += puntos.size();
             //Obtener los puntos de cada parte del contorno
             for (int j = 0; j < puntos.size(); j++) {
                 if (k % mod == 0) {
@@ -271,7 +262,7 @@ public class ConvexHull {
         double sumX = 0, sumY = 0;
         int puntosSuma = 0;
         for (int i = 0; i < aux.size(); i++) {
-           // Imgproc.circle(drawing, new Point(aux.get(i).x, aux.get(i).y), 5, new Scalar(255, 0, 0), 2, 8, 0);
+            // Imgproc.circle(drawing, new Point(aux.get(i).x, aux.get(i).y), 5, new Scalar(255, 0, 0), 2, 8, 0);
             sumX += aux.get(i).x;
             sumY += aux.get(i).y;
             puntosSuma++;
@@ -286,22 +277,18 @@ public class ConvexHull {
         //Herramientas.sintaxisDonasOBJ(aux);
         //Division
         // cannyOutput = Divisiones.printMat((int)Herramientas.yMin-5, (int)Herramientas.yMax+5, (int)Herramientas.min-5, (int)Herramientas.max+5, cannyOutput);
-        
-//        cannyOutput = Divisiones.generarPuntos((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5, (int) Herramientas.min - 5, (int) Herramientas.max + 5,
-//                longitud, 25, cannyOutput);
-        
-//        cannyOutput = Divisiones.generarPuntosY((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5, (int) Herramientas.min - 5, (int) Herramientas.max + 5,
-//                longitud, 20, cannyOutput);
 
-          cannyOutput = Divisiones.printMat((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5, (int) Herramientas.min - 5, (int) Herramientas.max + 5,
-                cannyOutput);
-        
+       cannyOutput = Divisiones.generarPuntos((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5, (int) Herramientas.min - 5, (int) Herramientas.max + 5,
+                longitud, 50, cannyOutput);
+    //    cannyOutput = Divisiones.generarPuntosY((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5, (int) Herramientas.min - 5, (int) Herramientas.max + 5,
+       //         longitud, 20, cannyOutput);
+
+//          cannyOutput = Divisiones.printMat((int) Herramientas.yMin - 5, (int) Herramientas.yMax + 5, (int) Herramientas.min - 5, (int) Herramientas.max + 5,
+//                cannyOutput);
 //        Mat resizeImg = new Mat();
 //        Size sz = new Size(100,150);
 //        Imgproc.resize(cannyOutput, resizeImg, sz );
-        
         //ConvexHull.rotate(resizeImg, 90);
-        
         //cannyOutput = Divisiones.printMat(33,195,29,368, cannyOutput);
         //Herramientas.sintaxisOBJ(aux, Herramientas.dividir(Herramientas.getLongitud(aux), aux, 3));
         // Herramientas.sintaxisOBJ(aux);
@@ -310,9 +297,9 @@ public class ConvexHull {
         Imgproc.circle(drawing, new Point(sumX / puntosSuma, sumY / puntosSuma), 5, new Scalar(0, 0, 255), 2, 8, 0);
 
         //this.rotate(cannyOutput, 90);
-       ///Aqui 
+        ///Aqui 
         imgContoursLabel.setIcon(new ImageIcon(HighGui.toBufferedImage(cannyOutput)));
-       frame.repaint();
+        frame.repaint();
 
         ///Este es el original
 //         imgContoursLabel.setIcon(new ImageIcon(HighGui.toBufferedImage(drawing)));
@@ -331,32 +318,27 @@ public class ConvexHull {
             System.out.println("");
         }
     }
-    
-    
-    
-    
-    
-    
-    public  void rotate(Mat image, double angle) {
-    //Calculate size of new matrix
-    double radians = Math.toRadians(angle);
-    double sin = Math.abs(Math.sin(radians));
-    double cos = Math.abs(Math.cos(radians));
 
-    int newWidth = (int) (image.width() * cos + image.height() * sin);
-    int newHeight = (int) (image.width() * sin + image.height() * cos);
+    public void rotate(Mat image, double angle) {
+        //Calculate size of new matrix
+        double radians = Math.toRadians(angle);
+        double sin = Math.abs(Math.sin(radians));
+        double cos = Math.abs(Math.cos(radians));
 
-    // rotating image
-    Point center = new Point(newWidth / 2, newHeight / 2);
-    Mat rotMatrix = Imgproc.getRotationMatrix2D(center, angle, 1.0); //1.0 means 100 % scale
+        int newWidth = (int) (image.width() * cos + image.height() * sin);
+        int newHeight = (int) (image.width() * sin + image.height() * cos);
 
-    Size size = new Size(newWidth, newHeight*1.5);
-    Imgproc.warpAffine(image, image, rotMatrix, size);
-    
-     imgContoursLabel.setIcon(new ImageIcon(HighGui.toBufferedImage(image)));
-      frame.repaint();
-   
-}
+        // rotating image
+        Point center = new Point(newWidth / 2, newHeight / 2);
+        Mat rotMatrix = Imgproc.getRotationMatrix2D(center, angle, 1.0); //1.0 means 100 % scale
+
+        Size size = new Size(newWidth, newHeight * 1.5);
+        Imgproc.warpAffine(image, image, rotMatrix, size);
+
+        imgContoursLabel.setIcon(new ImageIcon(HighGui.toBufferedImage(image)));
+        frame.repaint();
+
+    }
 
     private void ordenarPuntos(ArrayList<Point> aux) {
 
@@ -381,12 +363,8 @@ public class ConvexHull {
             }
         }
     }
-    
-    
-    ///Obtener contornos centrales
-     
-    
 
+    ///Obtener contornos centrales
     public static void main(String[] args) {
         // Load the native OpenCV library
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
